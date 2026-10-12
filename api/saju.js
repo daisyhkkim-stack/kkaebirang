@@ -78,7 +78,7 @@ export default async function handler(req, res) {
     } catch (error) {
       console.warn(`구글 서버 통신 시도 ${attempt}회 실패 원인:`, error.message);
 
-      if (error.message.includes("429") || error.message.includes("quota") || error.message.includes("EXHAUSTED")) {
+      if (error.message.includes("429") || error.message.includes("quota") || error.message.includes("EXHAUSTED") || error.message.includes("503") || error.message.includes("UNAVAILABLE")) {
         isQuotaExhausted = true;
         break;
       }
