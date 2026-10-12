@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>깨비랑 - 도깨비가 들려주는 오늘의 운세</title>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes("kakaotalk")) {
+          const currentUrl = window.location.href;
+          if (userAgent.includes("android")) {
+            location.href = "intent://" + currentUrl.replace(/https?:\/\//, "") + "#Intent;scheme=http;package=com.android.chrome;end";
+          } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+            location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="kkaebi-container">
+      <div class="kkaebi-light"></div>
+
+      <!-- 공통 서비스 로고 영역 -->
+      <header class="kkaebi-header">
+        <h1 class="logo" style="cursor: pointer" onclick="location.href = '/'">
+          깨비랑
+          <span class="logo-icon">
+            <img src="./assets/images/img_kkebi.png" alt="깨비랑 로고" />
+          </span>
+        </h1>
+      </header>
+
+      <!-- [SCREEN 1] 진입 즉시 가동되는 도깨비방망이 로딩 스크린 (시작 시 active 상태) -->
+      <div id="kkaebi-loading" class="kkaebi-loading-overlay">
+        <div class="loading-box">
+          <div class="kkaebi-bangmangi-premium">
+            <div class="bangmangi-body">
+              <div class="bangmangi-head-shape"></div>
+              <div class="spikes-grid">
+                <span class="p-spike top-left"></span>
+                <span class="p-spike top-right"></span>
+                <span class="p-spike mid-left-1"></span>
+                <span class="p-spike mid-center"></span>
+                <span class="p-spike mid-right-1"></span>
+                <span class="p-spike bot-left"></span>
+                <span class="p-spike bot-right"></span>
+              </div>
+            </div>
+            <div class="handle-wrap">
+              <div class="handle-shaft"></div>
+              <div class="handle-ring"></div>
+            </div>
+            <div class="bangmangi-aurora"></div>
+          </div>
+          <p class="loading-text">메인에서 넘겨받은 사주 원국을 바탕으로<br />오늘 하루의 행운 지침을 주입하고 있습니다...</p>
+        </div>
+      </div>
+
+      <!-- [SCREEN 2] 오늘의 운세 결과 세션 (기본 hidden) -->
+      <section id="kkaebi-step-result" class="kkaebi-step-content hidden">
+        <div class="kkaebi-result-title">
+          <p class="user-greet" id="today-date-placeholder">0000년 00월 00일</p>
+          <h2 class="main-title"><span id="user-placeholder">OO</span>님의 오늘 하루 운세 리포트</h2>
+        </div>
+
+        <div class="kkaebi-cards-container" id="sajuResultBox">
+          <!-- 1. 총운 -->
+          <div class="fortune-card">
+            <div class="card-header-zone">
+              <div class="card-tag tag-love">TODAY'S LUCK</div>
+              <h3 class="card-title">오늘의 총운</h3>
+            </div>
+            <p class="card-desc" id="fortune-todayDaily"></p>
+          </div>
+
+          <!-- 2. 행운 정보 2분할 가로 스택 -->
+          <div class="input-group-row" style="gap: 12px; margin-bottom: 20px">
+            <div class="fortune-card" style="margin-bottom: 0; flex: 1">
+              <div class="card-header-zone">
+                <div class="card-tag tag-money">COLOR</div>
+                <h3 class="card-title" style="font-size: 14px">행운의 색상</h3>
+              </div>
+              <p class="card-desc" id="fortune-luckyColor" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
+            </div>
+
+            <div class="fortune-card" style="margin-bottom: 0; flex: 1">
+              <div class="card-header-zone">
+                <div class="card-tag tag-health">ITEM</div>
+                <h3 class="card-title" style="font-size: 14px">행운의 아이템</h3>
+              </div>
+              <p class="card-desc" id="fortune-luckyItem" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
+            </div>
+          </div>
+
+          <!-- 3. 행동 조언 지침 -->
+          <div class="fortune-card">
+            <div class="card-header-zone">
+              <div class="card-tag tag-health">ACTION TIP</div>
+              <h3 class="card-title">깨비의 수호 지침</h3>
+            </div>
+            <p class="card-desc" id="fortune-actionTip"></p>
+          </div>
+        </div>
+
+        <!-- 하단 액션 버튼 영역 -->
+        <div class="kkaebi-main-action-zone">
+          <button type="button" class="btn-next-step" id="finalCtaBtn">평생 대운 및 프리미엄 사주 보기</button>
+        </div>
+
+        <div class="kkaebi-next-teaser">
+          <div class="service-intro-box">
+            <p class="intro-headline">매일 아침, 깨비랑과 함께 시작해 보세요</p>
+            <p class="intro-subtext">
+              오늘의 운세는 매일 새로운 일진 기운으로 갱신됩니다. 메인 화면에서 신년 운세를 검증하셨다면, 매일 아침 이곳에 들어와 나만의 수호 아이템을 챙겨 하루를 시작해 보세요!
+            </p>
+          </div>
+          <div class="kkaebi-twin-buttons">
+            <button type="button" class="btn-teaser-retry" onclick="location.href = '/'">처음부터 다시하기</button>
+            <button type="button" class="btn-teaser-friend" id="friendBtn">깨비랑과 친구되기</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 공통 푸터 영역 -->
+      <footer class="kkaebi-footer">
+        <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
+        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
+      </footer>
+    </main>
+
+    <!-- 프리미엄 결제 알림 모달 -->
+    <div id="kkaebiPaymentModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">네 운명의 비밀 서류를 열어볼까?</h4>
+          <button type="button" class="modal-close-btn" id="payModalCloseBtn">X</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">사주 원국과 평생 대운의 보따리를 더 깊숙이 들여다보고, 살아가면서 조심해야 할 타이밍까지 담은 프리미엄 리포트를 열어보세요.</p>
+          <div class="modal-action-zone">
+            <button type="button" class="btn-modal-pay-execute" onclick="location.href = '/premium'">확인하고 이야기 듣기</button>
+            <button type="button" class="btn-modal-close-today" id="payModalCancelBtn">조금 더 고민할게</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카카오톡 친구맺기 모달 -->
+    <div id="kkaebiModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">매일 아침, 깨비랑의 운세 알림톡 배달</h4>
+          <button type="button" class="modal-close-btn" id="modalCloseBtn">X</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">깨비랑 카카오 채널을 추가하시면 매주 월요일 아침 특별한 맞춤 조언 알림톡을 보내드려요.</p>
+          <div class="modal-action-zone">
+            <button type="button" class="btn-modal-kakao" id="kakaoLinkBtn">카카오톡으로 깨비랑 추가하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 전용 자바스크립트 로드 (달력 라이브러리는 필요 없으므로 완전 제외) -->
+    <script src="./assets/js/today.js"></script>
+  </body>
+</html>

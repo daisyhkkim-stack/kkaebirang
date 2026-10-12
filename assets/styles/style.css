@@ -1,0 +1,864 @@
+@charset "UTF-8";
+@import url(modal.css);
+@font-face {
+  font-family: "GyeonggiMillenniumTitle";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/TitleV.woff") format("woff");
+  font-weight: 800;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0b071e;
+  background-image: radial-gradient(circle at 50% 20%, rgba(106, 49, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(23, 224, 168, 0.05) 0%, transparent 60%);
+  color: #ffffff;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  word-break: keep-all;
+}
+
+.kkaebi-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  /* 레이어 에이: 천천히 올라가는 미세 반딧불 무리층 */
+  /* 레이어 비: 조금 더 빠르게 교차하며 올라가는 미세 반딧불 무리층 */
+}
+.kkaebi-light::before, .kkaebi-light::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 0;
+  right: 0;
+  bottom: -10%; /* 무한 상승 구동을 위한 물리 상하 여백 공간 확보 */
+  pointer-events: none; /* 클릭 및 폼 인풋창 선택 방해 차단 */
+  z-index: 0;
+}
+.kkaebi-light {
+  /* 레이어 에이 상세 설정 */
+}
+.kkaebi-light::before {
+  background-image: radial-gradient(1px 1px at 15% 25%, #ffffff 100%, transparent), radial-gradient(8px 8px at 15% 25%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 82% 15%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 82% 15%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 30% 45%, #ffffff 100%, transparent), radial-gradient(7px 7px at 30% 45%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 73% 50%, #fffbcf 100%, transparent), radial-gradient(12px 12px at 73% 50%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1.5px 1.5px at 22% 70%, #ffffff 100%, transparent), radial-gradient(9px 9px at 22% 70%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 88% 75%, #ffffff 100%, transparent), radial-gradient(7px 7px at 88% 75%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 40% 90%, #fffbcf 100%, transparent), radial-gradient(11px 11px at 40% 90%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 20초 주기 무한 상승 애니메이션 적용 */
+  animation: kkaebiSwayUpA 20s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 아스라이 사라지는 마스크 투명도 필터 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+.kkaebi-light {
+  /* 레이어 비 상세 설정 */
+}
+.kkaebi-light::after {
+  background-image: radial-gradient(1px 1px at 50% 30%, #ffffff 100%, transparent), radial-gradient(8px 8px at 50% 30%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(1.5px 1.5px at 65% 60%, #ffffff 100%, transparent), radial-gradient(10px 10px at 65% 60%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1px 1px at 10% 65%, #ffffff 100%, transparent), radial-gradient(8px 8px at 10% 65%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(2px 2px at 28% 80%, #ffffff 100%, transparent), radial-gradient(12px 12px at 28% 80%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 52% 95%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 52% 95%, rgba(230, 255, 0, 0.18) 100%, transparent), radial-gradient(1px 1px at 78% 85%, #ffffff 100%, transparent), radial-gradient(7px 7px at 78% 85%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 레이어 에이와 속도 차이를 두어 깊이감을 주는 14초 주기 시차 비행 애니메이션 적용 */
+  animation: kkaebiSwayUpB 12s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 투명하게 정돈되는 동일 마스크 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* 레이어 에이: 잔잔한 사인파 흔들림 및 부드러운 호흡식 불빛 점멸 */
+@keyframes kkaebiSwayUpA {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-8.33%) translateX(8px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-16.66%) translateX(-4px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-25%) translateX(10px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.4;
+  }
+}
+/* 레이어 비: 날카로운 지그재그 비행 및 빠른 팔랑거림 반짝임 연출 */
+@keyframes kkaebiSwayUpB {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  20% {
+    transform: translateY(-6.66%) translateX(-12px);
+    opacity: 0.2;
+    filter: blur(1.5px);
+  }
+  40% {
+    transform: translateY(-13.33%) translateX(10px);
+    opacity: 0.9;
+    filter: blur(1.2px);
+  }
+  60% {
+    transform: translateY(-20%) translateX(-8px);
+    opacity: 0.3;
+    filter: blur(1.6px);
+  }
+  80% {
+    transform: translateY(-26.66%) translateX(12px);
+    opacity: 1;
+    filter: blur(1.1px);
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+}
+@keyframes kkaebiFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes kkaebiSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.kkaebi-container {
+  width: 100%;
+  max-width: 540px;
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.kkaebi-container .kkaebi-header,
+.kkaebi-container .kkaebi-intro,
+.kkaebi-container .kkaebi-form,
+.kkaebi-container #kkaebi-step-result,
+.kkaebi-container .kkaebi-step-content {
+  position: relative;
+  z-index: 1;
+}
+
+.kkaebi-header .logo {
+  font-family: "GyeonggiMillenniumTitle", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+}
+.kkaebi-header .logo .logo-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: kkaebiFloat 2s ease-in-out infinite alternate;
+}
+.kkaebi-header .logo .logo-icon img {
+  width: 100%;
+  transform: translate(0, -7px);
+}
+
+.kkaebi-intro {
+  margin-bottom: 8px;
+}
+.kkaebi-intro .sub-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+.kkaebi-intro .main-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.3;
+  color: #ffffff;
+}
+
+.kkaebi-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.kkaebi-form .input-group-row {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+  align-items: center;
+}
+.kkaebi-form .input-group-row .name-group {
+  flex: 1;
+}
+.kkaebi-form .input-group-row .gender-group {
+  display: flex;
+  gap: 8px;
+  height: 64px;
+}
+.kkaebi-form .input-group-row .gender-group .btn-gender {
+  width: 60px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(23, 224, 168, 0.3);
+  border-radius: 12px;
+  color: #8580a2;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.kkaebi-form .input-group-row .gender-group .btn-gender:hover {
+  border-color: rgba(23, 224, 168, 0.7);
+  color: #ffffff;
+}
+.kkaebi-form .input-group-row .gender-group .btn-gender.active {
+  border-color: #17e0a8;
+  background: rgba(23, 224, 168, 0.1);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
+}
+.kkaebi-form .input-group {
+  position: relative;
+  width: 100%;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(23, 224, 168, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+}
+.kkaebi-form .input-group:focus-within {
+  border-color: #17e0a8;
+  box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
+}
+.kkaebi-form .input-group .input-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 14px;
+  color: #8580a2;
+  opacity: 0.7;
+}
+.kkaebi-form .input-group .input-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.kkaebi-form .input-group input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.kkaebi-form .input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+.kkaebi-form .input-group.select-group {
+  cursor: pointer;
+}
+.kkaebi-form .input-group.select-group .select-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+.kkaebi-form .input-group.select-group .select-wrapper .select-label {
+  font-size: 0.75rem;
+  color: #8580a2;
+  opacity: 0.6;
+  margin-bottom: 2px;
+}
+.kkaebi-form .input-group.select-group .select-wrapper input {
+  height: auto;
+  font-size: 1rem;
+}
+.kkaebi-form .input-group.select-group .arrow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3b0c2;
+  opacity: 0.5;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  padding-left: 8px;
+}
+.kkaebi-form .input-group.select-group .arrow-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2px;
+}
+.kkaebi-form .input-group.select-group .arrow-icon:hover {
+  color: #17e0a8;
+  opacity: 0.9;
+}
+.kkaebi-form .btn-submit {
+  width: 100%;
+  height: 64px;
+  margin-top: 16px;
+  background: linear-gradient(90deg, #3bf7be 0%, #15dfcb 100%);
+  border: none;
+  border-radius: 14px;
+  color: #030d1a;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(23, 224, 168, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.kkaebi-form .btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(23, 224, 168, 0.5);
+  filter: brightness(1.05);
+}
+.kkaebi-form .btn-submit:active {
+  transform: translateY(1px);
+}
+
+.kkaebi-footer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+.kkaebi-footer .footer-desc {
+  font-size: 0.9rem;
+  color: #b3b0c2;
+  opacity: 0.6;
+  letter-spacing: -0.2px;
+}
+.kkaebi-footer .copyright {
+  font-size: 0.75rem;
+  color: #b3b0c2;
+  opacity: 0.35;
+  letter-spacing: 0.3px;
+}
+
+#kkaebi-step-result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+#kkaebi-step-result .kkaebi-result-title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+#kkaebi-step-result .kkaebi-result-title .user-greet {
+  font-size: 1.05rem;
+  color: #b3b0c2;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+#kkaebi-step-result .kkaebi-result-title .main-title {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+#kkaebi-step-result .kkaebi-result-title .main-title #user-placeholder {
+  color: #17e0a8;
+  text-shadow: 0 0 10px rgba(38, 255, 181, 0.3);
+}
+#kkaebi-step-result .kkaebi-cards-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(23, 224, 168, 0.15);
+  border-radius: 20px;
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-tag.tag-money {
+  color: #ffd43b;
+  border: 1px solid rgba(255, 212, 59, 0.2);
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-tag.tag-love {
+  color: #ff8787;
+  border: 1px solid rgba(255, 135, 135, 0.2);
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-tag.tag-health {
+  color: #63e6be;
+  border: 1px solid rgba(99, 230, 190, 0.2);
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #c9c6d6;
+  opacity: 0.85;
+  word-break: keep-all;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card:hover {
+  transform: translateY(-3px);
+  background: rgba(23, 224, 168, 0.04);
+  border-color: #17e0a8;
+  box-shadow: 0 10px 25px rgba(23, 224, 168, 0.08);
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card:hover .card-desc {
+  opacity: 1;
+  color: #ffffff;
+}
+#kkaebi-step-result .kkaebi-next-teaser {
+  width: 100%;
+  text-align: center;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+}
+#kkaebi-step-result .kkaebi-next-teaser .teaser-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #b3b0c2;
+  margin-bottom: 20px;
+}
+#kkaebi-step-result .kkaebi-next-teaser .btn-next-step {
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+  transition: all 0.3s ease;
+}
+#kkaebi-step-result .kkaebi-next-teaser .btn-next-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.4);
+}
+
+.kkaebi-step-content.hidden {
+  display: none !important;
+}
+.kkaebi-step-content.active {
+  display: flex;
+}
+
+.kkaebi-step-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.kkaebi-step-content.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: translateY(10px);
+}
+.kkaebi-step-content.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+.kkaebi-step-content .btn-submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.kkaebi-step-content .btn-submit .kkaebi-spinner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(3, 13, 26, 0.2);
+  border-top-color: #030d1a;
+  border-radius: 50%;
+  animation: kkaebiSpin 0.8s linear infinite;
+}
+.kkaebi-step-content .btn-submit .kkaebi-spinner.hidden {
+  display: none;
+}
+
+.kkaebi-next-teaser {
+  width: 100%;
+  text-align: center;
+  padding: 32px 24px;
+  background: linear-gradient(180deg, transparent 0%, rgba(23, 224, 168, 0.02) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(23, 224, 168, 0.1);
+  margin-top: 20px;
+}
+.kkaebi-next-teaser .service-intro-box {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+.kkaebi-next-teaser .service-intro-box .intro-headline {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+.kkaebi-next-teaser .service-intro-box .intro-subtext {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #b3b0c2;
+  opacity: 0.85;
+  letter-spacing: -0.2px;
+  word-break: keep-all;
+}
+.kkaebi-next-teaser .btn-next-step {
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kkaebi-next-teaser .btn-next-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+  filter: brightness(1.05);
+}
+.kkaebi-next-teaser .btn-next-step:active {
+  transform: translateY(1px);
+}
+
+.kkaebi-main-action-zone {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+.kkaebi-main-action-zone button {
+  width: 100%;
+  height: 64px;
+  border: none;
+  border-radius: 16px;
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+  transition: all 0.3s ease;
+}
+.kkaebi-main-action-zone .btn-next-step {
+  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+}
+.kkaebi-main-action-zone .btn-next-step:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+}
+.kkaebi-main-action-zone .btn-share {
+  background: linear-gradient(90deg, #0cbd8b 0%, #3dd6a8 100%);
+}
+.kkaebi-main-action-zone .btn-share:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+}
+
+.kkaebi-twin-buttons {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+.kkaebi-twin-buttons button {
+  flex: 1;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.3px;
+}
+.kkaebi-twin-buttons .btn-teaser-retry {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #b3b0c2;
+}
+.kkaebi-twin-buttons .btn-teaser-retry:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+}
+.kkaebi-twin-buttons .btn-teaser-friend {
+  background: rgba(23, 224, 168, 0.08);
+  border: 1px solid rgba(23, 224, 168, 0.3);
+  color: #17e0a8;
+  box-shadow: 0 4px 15px rgba(23, 224, 168, 0.05);
+}
+.kkaebi-twin-buttons .btn-teaser-friend:hover {
+  background: rgba(23, 224, 168, 0.15);
+  border-color: #17e0a8;
+  box-shadow: 0 6px 20px rgba(23, 224, 168, 0.15);
+}
+
+@media (max-width: 480px) {
+  .kkaebi-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .kkaebi-result-title {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  .kkaebi-result-title .user-greet {
+    font-size: 0.95rem;
+    color: #b3b0c2;
+    opacity: 0.8;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .kkaebi-result-title .main-title {
+    font-size: 1.55rem;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    word-break: keep-all;
+  }
+  .kkaebi-result-title .main-title #user-placeholder {
+    color: #17e0a8;
+    text-shadow: 0 0 10px rgba(23, 224, 168, 0.3);
+  }
+}
+.kkaebi-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 7, 30, 0.9);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.3s ease;
+}
+.kkaebi-loading-overlay.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+.kkaebi-loading-overlay .loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium {
+  position: relative;
+  width: 80px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: premiumBangmangiMotion 1.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body {
+  position: relative;
+  width: 48px;
+  height: 90px;
+  z-index: 2;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .bangmangi-head-shape {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #17e0a8 0%, #0fa37f 50%, #065c47 100%);
+  border-radius: 24px 24px 12px 12px;
+  box-shadow: inset -4px -6px 12px rgba(0, 0, 0, 0.6), inset 4px 4px 8px rgba(255, 255, 255, 0.3);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #fff3b0 0%, #ca9e28 100%);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 0 8px rgba(202, 158, 40, 0.6);
+  z-index: 3;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.top-left {
+  top: 15px;
+  left: -4px;
+  transform: rotate(-75deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.top-right {
+  top: 15px;
+  right: -4px;
+  transform: rotate(15deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.mid-left-1 {
+  top: 40px;
+  left: -2px;
+  transform: rotate(-60deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.mid-center {
+  top: 35px;
+  left: 19px;
+  width: 11px;
+  height: 11px;
+  transform: rotate(-45deg) scale(1.1);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.mid-right-1 {
+  top: 40px;
+  right: -2px;
+  transform: rotate(30deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.bot-left {
+  top: 65px;
+  left: 3px;
+  transform: rotate(-45deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-body .p-spike.bot-right {
+  top: 65px;
+  right: 3px;
+  transform: rotate(45deg);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .handle-wrap {
+  position: relative;
+  width: 12px;
+  height: 55px;
+  margin-top: -2px;
+  z-index: 2;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .handle-wrap .handle-shaft {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #534f66 0%, #2e2b3d 100%);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0, 0, 0, 0.3) 4px, rgba(0, 0, 0, 0.3) 8px);
+  border-radius: 0 0 2px 2px;
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.5);
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .handle-wrap .handle-ring {
+  position: absolute;
+  bottom: -6px;
+  left: 1px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #8580a2;
+  border-radius: 50%;
+  background: transparent;
+}
+.kkaebi-loading-overlay .kkaebi-bangmangi-premium .bangmangi-aurora {
+  position: absolute;
+  top: -15px;
+  width: 90px;
+  height: 130px;
+  background: radial-gradient(circle, rgba(23, 224, 168, 0.4) 0%, transparent 70%);
+  filter: blur(16px);
+  z-index: 1;
+  animation: auroraPulse 1.8s ease-in-out infinite alternate;
+}
+.kkaebi-loading-overlay .loading-text {
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  animation: textFade 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes premiumBangmangiMotion {
+  0% {
+    transform: translateY(5px) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(-15px) rotate(12deg);
+  }
+}
+@keyframes auroraPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+@keyframes textFade {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

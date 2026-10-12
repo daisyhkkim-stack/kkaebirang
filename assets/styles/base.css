@@ -1,0 +1,191 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "GyeonggiMillenniumTitle";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/TitleV.woff") format("woff");
+  font-weight: 800;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0b071e;
+  background-image: radial-gradient(circle at 50% 20%, rgba(106, 49, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(23, 224, 168, 0.05) 0%, transparent 60%);
+  color: #ffffff;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  word-break: keep-all;
+}
+
+.kkaebi-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  /* 레이어 에이: 천천히 올라가는 미세 반딧불 무리층 */
+  /* 레이어 비: 조금 더 빠르게 교차하며 올라가는 미세 반딧불 무리층 */
+}
+.kkaebi-light::before, .kkaebi-light::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 0;
+  right: 0;
+  bottom: -10%; /* 무한 상승 구동을 위한 물리 상하 여백 공간 확보 */
+  pointer-events: none; /* 클릭 및 폼 인풋창 선택 방해 차단 */
+  z-index: 0;
+}
+.kkaebi-light {
+  /* 레이어 에이 상세 설정 */
+}
+.kkaebi-light::before {
+  background-image: radial-gradient(1px 1px at 15% 25%, #ffffff 100%, transparent), radial-gradient(8px 8px at 15% 25%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 82% 15%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 82% 15%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 30% 45%, #ffffff 100%, transparent), radial-gradient(7px 7px at 30% 45%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 73% 50%, #fffbcf 100%, transparent), radial-gradient(12px 12px at 73% 50%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1.5px 1.5px at 22% 70%, #ffffff 100%, transparent), radial-gradient(9px 9px at 22% 70%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 88% 75%, #ffffff 100%, transparent), radial-gradient(7px 7px at 88% 75%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 40% 90%, #fffbcf 100%, transparent), radial-gradient(11px 11px at 40% 90%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 20초 주기 무한 상승 애니메이션 적용 */
+  animation: kkaebiSwayUpA 20s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 아스라이 사라지는 마스크 투명도 필터 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+.kkaebi-light {
+  /* 레이어 비 상세 설정 */
+}
+.kkaebi-light::after {
+  background-image: radial-gradient(1px 1px at 50% 30%, #ffffff 100%, transparent), radial-gradient(8px 8px at 50% 30%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(1.5px 1.5px at 65% 60%, #ffffff 100%, transparent), radial-gradient(10px 10px at 65% 60%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1px 1px at 10% 65%, #ffffff 100%, transparent), radial-gradient(8px 8px at 10% 65%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(2px 2px at 28% 80%, #ffffff 100%, transparent), radial-gradient(12px 12px at 28% 80%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 52% 95%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 52% 95%, rgba(230, 255, 0, 0.18) 100%, transparent), radial-gradient(1px 1px at 78% 85%, #ffffff 100%, transparent), radial-gradient(7px 7px at 78% 85%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 레이어 에이와 속도 차이를 두어 깊이감을 주는 14초 주기 시차 비행 애니메이션 적용 */
+  animation: kkaebiSwayUpB 12s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 투명하게 정돈되는 동일 마스크 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* 레이어 에이: 잔잔한 사인파 흔들림 및 부드러운 호흡식 불빛 점멸 */
+@keyframes kkaebiSwayUpA {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-8.33%) translateX(8px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-16.66%) translateX(-4px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-25%) translateX(10px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.4;
+  }
+}
+/* 레이어 비: 날카로운 지그재그 비행 및 빠른 팔랑거림 반짝임 연출 */
+@keyframes kkaebiSwayUpB {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  20% {
+    transform: translateY(-6.66%) translateX(-12px);
+    opacity: 0.2;
+    filter: blur(1.5px);
+  }
+  40% {
+    transform: translateY(-13.33%) translateX(10px);
+    opacity: 0.9;
+    filter: blur(1.2px);
+  }
+  60% {
+    transform: translateY(-20%) translateX(-8px);
+    opacity: 0.3;
+    filter: blur(1.6px);
+  }
+  80% {
+    transform: translateY(-26.66%) translateX(12px);
+    opacity: 1;
+    filter: blur(1.1px);
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+}
+@keyframes kkaebiFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes kkaebiSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.kkaebi-container {
+  width: 100%;
+  max-width: 540px;
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.kkaebi-container .kkaebi-header,
+.kkaebi-container .kkaebi-intro,
+.kkaebi-container .kkaebi-form,
+.kkaebi-container #kkaebi-step-result,
+.kkaebi-container .kkaebi-step-content {
+  position: relative;
+  z-index: 1;
+}
+
+.kkaebi-header .logo {
+  font-family: "GyeonggiMillenniumTitle", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+}
+.kkaebi-header .logo .logo-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: kkaebiFloat 2s ease-in-out infinite alternate;
+}
+.kkaebi-header .logo .logo-icon img {
+  width: 100%;
+  transform: translate(0, -7px);
+}

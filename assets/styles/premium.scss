@@ -1,0 +1,530 @@
+@use "base" as *;
+@import url(style.css);
+
+/* ----------------===================================---------------- */
+/* [SCREEN 3] 프리미엄 심층 운세 풀이 세션 */
+/* ----------------===================================---------------- */
+.premium-report-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+
+  /* 2배 확장판 마스터 총평 카드 */
+  .premium-header-card {
+    background: rgba(18, 14, 43, 0.6);
+    border: 1px dashed rgba(23, 224, 168, 0.45);
+    border-radius: 20px;
+    padding: 24px 20px; /* 모바일 터치 패딩 최적화 */
+    text-align: center;
+    box-shadow: inset 0 0 20px rgba(23, 224, 168, 0.05);
+
+    .report-serial {
+      font-size: 0.75rem;
+      color: #17e0a8;
+      opacity: 0.6;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .premium-main-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      line-height: 1.4;
+      color: #ffffff;
+      letter-spacing: -0.4px;
+
+      .user-highlight {
+        color: #17e0a8;
+        text-shadow: 0 0 10px rgba(23, 224, 168, 0.3);
+      }
+    }
+
+    .horizontal-divider {
+      width: 30px;
+      height: 1.5px;
+      background: #17e0a8;
+      margin: 16px auto;
+      opacity: 0.4;
+    }
+
+    .premium-summary-text {
+      font-size: 0.925rem;
+      line-height: 1.65;
+      color: #c9c6d6;
+      word-break: keep-all;
+      opacity: 0.9;
+    }
+  }
+
+  /* 타임라인 가이드 대제목 */
+  .premium-section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 4px;
+    margin-bottom: -4px;
+    letter-spacing: -0.4px;
+  }
+
+  /* 🌟 [모바일 최적화] 12달 수직 타임라인 스택 구조 */
+  .premium-monthly-timeline {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 모바일에서 촘촘하게 배열 */
+
+    &.hidden {
+      display: none !important;
+    }
+
+    .month-card {
+      display: flex;
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      padding: 16px;
+      gap: 14px; /* 좌측 뱃지와 우측 본문 간격 콤팩트화 */
+      align-items: flex-start;
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease;
+
+      /* 좌측 월 표시 네온 미니 뱃지 */
+      .month-number {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #17e0a8;
+        background: rgba(23, 224, 168, 0.06);
+        border: 1px solid rgba(23, 224, 168, 0.2);
+        padding: 5px 10px;
+        border-radius: 8px;
+        min-width: 40px; /* 가로폭 슬림화하여 본문 영역 대폭 확보 */
+        text-align: center;
+        flex-shrink: 0;
+        position: absolute;
+      }
+
+      /* 우측 본문 설명 셋 */
+      .month-body {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        flex: 1; /* 모바일 우측 공간 자동 풀 확장 */
+
+        .month-title {
+          font-size: 0.96rem;
+          font-weight: 600;
+          color: #ffffff;
+          letter-spacing: -0.3px;
+          line-height: 28px;
+        }
+
+        .month-desc {
+          font-size: 0.86rem; /* 화면 너비 대비 폰트 배율 최적화 */
+          line-height: 1.55;
+          color: #b3b0c2;
+          opacity: 0.85;
+          word-break: keep-all;
+        }
+      }
+
+      /* 터치 및 마우스 반응 처리 */
+      &:hover {
+        background: rgba(23, 224, 168, 0.02);
+        border-color: rgba(23, 224, 168, 0.25);
+
+        .month-body .month-desc {
+          opacity: 1;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  /* 사주 요약 스탯 분석 카드 */
+  .premium-stats-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 20px;
+
+    .stats-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .stats-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 0.88rem;
+        color: #b3b0c2;
+
+        .stat-label {
+          width: 80px; /* 레이블 가로 고정 최소화 */
+          flex-shrink: 0;
+        }
+
+        .stat-bar-bg {
+          flex: 1;
+          height: 5px;
+          background: rgba(255, 255, 255, 0.04);
+          border-radius: 3px;
+          overflow: hidden;
+
+          .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #17e0a8);
+          }
+        }
+
+        .stat-value {
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: #17e0a8;
+          width: 50px;
+          text-align: right;
+        }
+
+        .stat-text-value {
+          font-weight: 600;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  /* 도깨비 일상 비책 카드 */
+  .premium-secret-card {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.07) 0%, rgba(23, 224, 168, 0.05) 100%);
+    border: 1px solid rgba(124, 58, 237, 0.5);
+    border-radius: 18px;
+    padding: 20px;
+
+    .secret-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin: 5px 0 20px;
+      letter-spacing: -0.4px;
+    }
+
+    .secret-desc {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #c9c6d6;
+      word-break: keep-all;
+      padding: 0 10px;
+    }
+  }
+
+  .premium-action-zone {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+
+    [class^="btn-premium-"] {
+      width: 100%;
+      height: 54px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+
+      transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+
+      &:active {
+        transform: scale(0.99);
+      }
+    }
+
+    .btn-premium-share {
+      background: rgba($neon-emerald, 0.08);
+      border: 1px solid rgba($neon-emerald, 0.35);
+      color: $neon-emerald;
+
+      &:hover {
+        background: rgba($neon-emerald, 0.15);
+        border-color: $neon-emerald;
+        box-shadow: 0 4px 15px rgba($neon-emerald, 0.15);
+      }
+    }
+
+    .btn-premium-friend {
+      background: rgba($neon-purple, 0.08);
+      border: 1px solid rgba($neon-purple, 0.35);
+      color: $neon-purple;
+
+      &:hover {
+        background: rgba($neon-purple, 0.15);
+        border-color: $neon-purple;
+        box-shadow: 0 4px 15px rgba($neon-purple, 0.15);
+      }
+    }
+
+    .btn-premium-home {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: $text-secondary;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: $text-primary;
+      }
+    }
+  }
+}
+
+/* 태블릿 이상 기기 대응을 위한 반응형 가이드 스케일 */
+@media (min-width: 400px) {
+  .premium-page {
+    .premium-report-zone {
+      .premium-header-card .premium-main-title {
+        font-size: 1.45rem;
+      }
+      .premium-monthly-timeline .month-card .month-body {
+        .month-title {
+          font-size: 1.05rem;
+        }
+        .month-desc {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+#kkaebi-sticky-sensor {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  top: 0; // 탭 메뉴 바로 윗단에 수평 선형 일치화
+  pointer-events: none;
+}
+/* 4단 테마 스위칭 탭 메뉴 스타일 */
+.premium-theme-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+  margin: 16px 0 8px 0;
+  position: sticky;
+  top: 0; // 상단 도달 시 자동 고정 활성화
+  z-index: 100; // 월별 카드가 위로 덮이지 않도록 레이어 우선순위 확보
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: transparent; // 기본 상태는 투명
+
+  // [핵심 추가] 상단 고정(Sticky)이 일어나는 순간 자바스크립트가 주입할 특수 디자인
+  &.is-sticky {
+    background: rgb(12 15 35 / 50%); // 기존 딥 퍼플 색상 배경화 및 반투명 처리
+    backdrop-filter: blur(12px); // 유리창처럼 뒷배경 글자들을 영롱하게 흐림 연출
+    -webkit-backdrop-filter: blur(12px);
+    padding: 2px 0; // 상하 공간 볼륨감 리드미컬 조율
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.5),
+      0 4px 20px rgba(23, 224, 168, 0.15); // 하단 은은한 오라 발색
+  }
+
+  .theme-tab-btn {
+    flex: 1;
+    background: transparent;
+    color: #8580a2;
+    border: none;
+    padding: 12px 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    line-height: 1;
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    /* 활성화시 에메랄드 발광 효과 지정 */
+    &.active {
+      color: #ffffff;
+      background-color: rgba($neon-emerald, 0.2);
+      border: 1px solid rgba($neon-emerald, 0.35);
+    }
+  }
+}
+
+// 탭 메뉴 체인지 시 본문 텍스트 부드러운 전환 효과
+.month-desc {
+  &.fade-refresh {
+    animation: fadeInPage 0.4s ease-out forwards;
+  }
+}
+
+/* 재물운 전용 독립 화면 스타일 */
+.premium-finance-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &.hidden {
+    display: none !important;
+  }
+
+  .finance-period-grid {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+
+    .period-card {
+      flex: 1;
+      background-color: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 24px;
+      border-radius: 16px;
+      text-align: left;
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        border-color: #17e0a8;
+      }
+
+      .period-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #17a2ff;
+        margin-bottom: 12px;
+      }
+
+      .period-desc {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        color: #c9c6d6;
+      }
+    }
+  }
+
+  .finance-rules-box {
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px dashed rgba(23, 224, 168, 0.3);
+    padding: 24px;
+    border-radius: 16px;
+    text-align: left;
+
+    .rules-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #17e0a8;
+      margin-bottom: 16px;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      li {
+        font-size: 0.88rem;
+        line-height: 1.5;
+        color: #b3b0c2;
+        padding-left: 16px;
+        position: relative;
+
+        &::before {
+          content: "•";
+          position: absolute;
+          left: 0;
+          color: #17e0a8;
+        }
+      }
+    }
+  }
+}
+
+/* 연애운 전용 패널 영역 스타일 */
+.premium-relation-zone {
+  width: 100%;
+
+  &.hidden {
+    display: none !important;
+  }
+
+  .relation-main-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+
+    .relation-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #17a2ff;
+      margin-bottom: 12px;
+    }
+
+    .relation-desc {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #c9c6d6;
+    }
+  }
+}
+
+/* 건강운 전용 패널 영역 스타일 */
+.premium-wellness-zone {
+  width: 100%;
+
+  &.hidden {
+    display: none !important;
+  }
+
+  .wellness-main-card {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+
+    .wellness-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #17a2ff;
+      margin-bottom: 12px;
+    }
+
+    .wellness-desc {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #c9c6d6;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .premium-finance-zone .finance-period-grid {
+    flex-direction: column;
+  }
+}

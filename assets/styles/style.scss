@@ -1,0 +1,805 @@
+@use "base" as *;
+
+// 인트로 메시지
+.kkaebi-intro {
+  margin-bottom: 8px;
+
+  .sub-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: $text-primary;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .main-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.3;
+    color: $text-primary;
+  }
+}
+
+// 입력 폼 필드 영역
+.kkaebi-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  // [추가] 가로 2분할 레이아웃 배치 팩터
+  .input-group-row {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    align-items: center;
+
+    // 이름 입력칸 비율 조정
+    .name-group {
+      flex: 1;
+    }
+
+    // 성별 버튼 컨테이너
+    .gender-group {
+      display: flex;
+      gap: 8px;
+      height: 64px; // 기존 input-group 높이와 완전 일치화
+
+      .btn-gender {
+        width: 60px;
+        height: 100%;
+        background: $card-bg;
+        border: 1.5px solid rgba(23, 224, 168, 0.3);
+        border-radius: 12px;
+        color: $text-secondary;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          border-color: rgba(23, 224, 168, 0.7);
+          color: $text-primary;
+        }
+
+        // 선택되었을 때 활성화 상태 (네온 에메랄드 발색 효과)
+        &.active {
+          border-color: $border-color;
+          background: rgba(23, 224, 168, 0.1);
+          color: $text-primary;
+          box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
+        }
+      }
+    }
+  }
+
+  // 공통 인풋 그룹
+  .input-group {
+    position: relative;
+    width: 100%;
+    height: 64px;
+    background: $card-bg;
+    border: 1.5px solid rgba(23, 224, 168, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: $border-color;
+      box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
+    }
+
+    .input-icon {
+      display: flex;
+      align-items: center;
+      margin-right: 14px;
+      color: $text-secondary;
+      opacity: 0.7;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    input {
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: $text-primary;
+      font-size: 1.1rem;
+      font-weight: 500;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.25);
+      }
+    }
+
+    // 복합 생년월일 셀렉트 레이아웃 스타일
+    &.select-group {
+      cursor: pointer;
+
+      .select-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+
+        .select-label {
+          font-size: 0.75rem;
+          color: $text-secondary;
+          opacity: 0.6;
+          margin-bottom: 2px;
+        }
+
+        input {
+          height: auto;
+          font-size: 1rem;
+        }
+      }
+
+      .arrow-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #b3b0c2;
+        opacity: 0.5;
+        transition:
+          opacity 0.3s ease,
+          color 0.3s ease;
+        padding-left: 8px;
+
+        svg {
+          width: 20px; // 왼쪽 기본 아이콘과 시각적 스케일감 일치화
+          height: 20px;
+          stroke-width: 2px;
+        }
+
+        &:hover {
+          color: #17e0a8; // 깨비랑 고유의 네온 에메랄드 컬러 동기화
+          opacity: 0.9;
+        }
+      }
+
+      // &:focus-within {
+      //   .arrow-icon {
+      //     color: #17e0a8; // 깨비랑 고유의 네온 에메랄드 컬러 동기화
+      //     opacity: 0.9;
+      //   }
+      // }
+    }
+  }
+
+  // 하단 에메랄드 그라데이션 CTA 버튼
+  .btn-submit {
+    width: 100%;
+    height: 64px;
+    margin-top: 16px;
+    background: linear-gradient(90deg, #3bf7be 0%, #15dfcb 100%);
+    border: none;
+    border-radius: 14px;
+    color: #030d1a; // 가독성을 위한 어두운 네이비 글자색
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(23, 224, 168, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(23, 224, 168, 0.5);
+      filter: brightness(1.05);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+// 푸터
+.kkaebi-footer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; // 안내 텍스트와 카피라이트 사이의 간격 격리
+  text-align: center;
+
+  .footer-desc {
+    font-size: 0.9rem;
+    color: #b3b0c2;
+    opacity: 0.6;
+    letter-spacing: -0.2px;
+  }
+
+  .copyright {
+    font-size: 0.75rem; // 조금 더 작고 얇게 조정
+    color: #b3b0c2;
+    opacity: 0.35; // 시선을 분산시키지 않도록 은은하게 처리
+    letter-spacing: 0.3px;
+  }
+}
+
+// 결과 페이지 전용 스타일 오버라이딩
+#kkaebi-step-result {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  .kkaebi-result-title {
+    text-align: center;
+    margin-bottom: 8px;
+
+    .user-greet {
+      font-size: 1.05rem;
+      color: #b3b0c2;
+      opacity: 0.8;
+      margin-bottom: 6px;
+    }
+
+    .main-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #ffffff;
+
+      #user-placeholder {
+        color: $neon-emerald;
+        text-shadow: 0 0 10px rgba(38, 255, 181, 0.3);
+      }
+    }
+  }
+
+  .kkaebi-cards-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .fortune-card {
+      width: 100%;
+      background: $glass-bg;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid $glass-border;
+      border-radius: 20px;
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+
+      .card-header-zone {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        // 이모지 대체용 미니 텍스트 태그 뱃지
+        .card-tag {
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          padding: 4px 8px;
+          border-radius: 6px;
+          background: rgba(255, 255, 255, 0.04);
+
+          &.tag-money {
+            color: #ffd43b;
+            border: 1px solid rgba(255, 212, 59, 0.2);
+          }
+          &.tag-love {
+            color: #ff8787;
+            border: 1px solid rgba(255, 135, 135, 0.2);
+          }
+          &.tag-health {
+            color: #63e6be;
+            border: 1px solid rgba(99, 230, 190, 0.2);
+          }
+        }
+
+        .card-title {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #ffffff;
+        }
+      }
+
+      .card-desc {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #c9c6d6;
+        opacity: 0.85;
+        word-break: keep-all;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+        background: rgba(23, 224, 168, 0.04);
+        border-color: $neon-emerald;
+        box-shadow: 0 10px 25px rgba(23, 224, 168, 0.08);
+
+        .card-desc {
+          opacity: 1;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+
+  .kkaebi-next-teaser {
+    width: 100%;
+    text-align: center;
+    padding: 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+
+    .teaser-text {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #b3b0c2;
+      margin-bottom: 20px;
+    }
+
+    .btn-next-step {
+      width: 100%;
+      height: 64px;
+      background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+      border: none;
+      border-radius: 16px;
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.4);
+      }
+    }
+  }
+}
+
+// 로딩 제어용 스피너 보정 및 글로벌 공통 제어
+.kkaebi-step-content {
+  &.hidden {
+    display: none !important;
+  }
+  &.active {
+    display: flex;
+  }
+}
+
+// 화면 노출 제어용 글로벌 클래스
+.kkaebi-step-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+
+  &.hidden {
+    display: none !important;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  &.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // 버튼 내부 도깨비 로딩 스피너 스타일
+  .btn-submit {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .kkaebi-spinner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(3, 13, 26, 0.2);
+      border-top-color: #030d1a;
+      border-radius: 50%;
+      animation: kkaebiSpin 0.8s linear infinite;
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+}
+
+// 하단 티저 박스 내부 텍스트 리디자인 확장
+.kkaebi-next-teaser {
+  width: 100%;
+  text-align: center;
+  padding: 32px 24px;
+  background: linear-gradient(180deg, transparent 0%, rgba(23, 224, 168, 0.02) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(23, 224, 168, 0.1);
+  margin-top: 20px;
+
+  .service-intro-box {
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+
+    // 강조형 헤드라인 카피
+    .intro-headline {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.4px;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    // 친근하면서도 구체적인 서비스 기능 소개 본문
+    .intro-subtext {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #b3b0c2;
+      opacity: 0.85;
+      letter-spacing: -0.2px;
+      word-break: keep-all; // 한글 줄바꿈 흐름 최적화
+    }
+  }
+
+  // 프리미엄 전환 버튼 밸런스 유지
+  .btn-next-step {
+    width: 100%;
+    height: 64px;
+    background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+    border: none;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+      filter: brightness(1.05);
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+}
+
+// 메인 액션존 보정
+.kkaebi-main-action-zone {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 8px;
+
+  button {
+    width: 100%;
+    height: 64px;
+    border: none;
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
+    transition: all 0.3s ease;
+  }
+
+  .btn-next-step {
+    background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+    }
+  }
+
+  .btn-share {
+    background: linear-gradient(90deg, #0cbd8b 0%, #3dd6a8 100%);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(124, 58, 237, 0.45);
+    }
+  }
+}
+
+// 이원화 트랙 버튼 박스 레이아웃 (다시하기 vs 친구되기)
+.kkaebi-twin-buttons {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+
+  button {
+    flex: 1;
+    height: 52px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: -0.3px;
+  }
+
+  .btn-teaser-retry {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #b3b0c2;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: #ffffff;
+    }
+  }
+
+  .btn-teaser-friend {
+    background: rgba(23, 224, 168, 0.08);
+    border: 1px solid rgba(23, 224, 168, 0.3);
+    color: #17e0a8;
+    box-shadow: 0 4px 15px rgba(23, 224, 168, 0.05);
+
+    &:hover {
+      background: rgba(23, 224, 168, 0.15);
+      border-color: #17e0a8;
+      box-shadow: 0 6px 20px rgba(23, 224, 168, 0.15);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .kkaebi-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .kkaebi-result-title {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+
+    .user-greet {
+      font-size: 0.95rem;
+      color: #b3b0c2;
+      opacity: 0.8;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .main-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.35;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      word-break: keep-all;
+
+      #user-placeholder {
+        color: #17e0a8;
+        text-shadow: 0 0 10px rgba(23, 224, 168, 0.3);
+      }
+    }
+  }
+}
+
+.kkaebi-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(#0b071e, 0.9); // 기존 딥 퍼플 색상에 투명도 부여
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.3s ease;
+
+  &.hidden {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .loading-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  // 순수 CSS 도깨비방망이 모델링 및 모션
+  // [업그레이드] 고품질 전통 도깨비방망이 스타일 사양
+  .kkaebi-bangmangi-premium {
+    position: relative;
+    width: 80px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: premiumBangmangiMotion 1.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+
+    // 방망이 본체 타격부 (전통 클럽 실루엣 연출)
+    .bangmangi-body {
+      position: relative;
+      width: 48px;
+      height: 90px;
+      z-index: 2;
+
+      .bangmangi-head-shape {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #17e0a8 0%, #0fa37f 50%, #065c47 100%);
+        border-radius: 24px 24px 12px 12px; // 위는 풍성하고 아래는 리드미컬하게 좁아지는 입체 형태
+        box-shadow:
+          inset -4px -6px 12px rgba(0, 0, 0, 0.6),
+          inset 4px 4px 8px rgba(255, 255, 255, 0.3);
+      }
+
+      // 황금빛 도깨비 뿔 돌기 세부 묘사 (3D 볼륨감 매핑)
+      .p-spike {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: linear-gradient(135deg, #fff3b0 0%, #ca9e28 100%);
+        border-radius: 50% 0 50% 50%; // 날카로운 원뿔 돌기 형태 연출
+        transform: rotate(-45deg);
+        box-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.4),
+          0 0 8px rgba(202, 158, 40, 0.6);
+        z-index: 3;
+
+        // 방망이 표면에 입체적인 그리드로 배치
+        &.top-left {
+          top: 15px;
+          left: -4px;
+          transform: rotate(-75deg);
+        }
+        &.top-right {
+          top: 15px;
+          right: -4px;
+          transform: rotate(15deg);
+        }
+        &.mid-left-1 {
+          top: 40px;
+          left: -2px;
+          transform: rotate(-60deg);
+        }
+        &.mid-center {
+          top: 35px;
+          left: 19px;
+          width: 11px;
+          height: 11px;
+          transform: rotate(-45deg) scale(1.1);
+        }
+        &.mid-right-1 {
+          top: 40px;
+          right: -2px;
+          transform: rotate(30deg);
+        }
+        &.bot-left {
+          top: 65px;
+          left: 3px;
+          transform: rotate(-45deg);
+        }
+        &.bot-right {
+          top: 65px;
+          right: 3px;
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    // 고급 전통 손잡이 레이어 부문
+    .handle-wrap {
+      position: relative;
+      width: 12px;
+      height: 55px;
+      margin-top: -2px; // 격차 최소화 일치
+      z-index: 2;
+
+      .handle-shaft {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #534f66 0%, #2e2b3d 100%);
+        background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0, 0, 0, 0.3) 4px, rgba(0, 0, 0, 0.3) 8px); // 가죽 끈 래핑 텍스처 시각화
+        border-radius: 0 0 2px 2px;
+        box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.5);
+      }
+
+      // 손잡이 끝부분 고리 디테일
+      .handle-ring {
+        position: absolute;
+        bottom: -6px;
+        left: 1px;
+        width: 10px;
+        height: 10px;
+        border: 2px solid #8580a2;
+        border-radius: 50%;
+        background: transparent;
+      }
+    }
+
+    // 뒷배경에 깔리는 영험한 네온 에메랄드 아우라 광원
+    .bangmangi-aurora {
+      position: absolute;
+      top: -15px;
+      width: 90px;
+      height: 130px;
+      background: radial-gradient(circle, rgba(23, 224, 168, 0.4) 0%, transparent 70%);
+      filter: blur(16px);
+      z-index: 1;
+      animation: auroraPulse 1.8s ease-in-out infinite alternate;
+    }
+  }
+
+  .loading-text {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: -0.3px;
+    animation: textFade 1.5s ease-in-out infinite alternate;
+  }
+}
+
+// 부드러운 회전 및 둥둥 떠다니는 모션 키프레임 조율
+@keyframes premiumBangmangiMotion {
+  0% {
+    transform: translateY(5px) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(-15px) rotate(12deg);
+  }
+}
+
+@keyframes auroraPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes textFade {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@import url(modal.css);

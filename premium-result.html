@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>깨비랑 - 2027년 프리미엄 전체 운세 리포트</title>
+    <link rel="stylesheet" href="./assets/styles/premium.css" />
+  </head>
+  <body>
+    <main class="kkaebi-container premium-page">
+      <!-- 고급 3D 도깨비방망이 프리미엄 비동기 로딩 스크린 -->
+      <div id="kkaebi-loading" class="kkaebi-loading-overlay">
+        <div class="loading-box">
+          <div class="kkaebi-bangmangi-premium">
+            <div class="bangmangi-body">
+              <div class="bangmangi-head-shape"></div>
+              <div class="spikes-grid">
+                <span class="p-spike top-left"></span>
+                <span class="p-spike top-right"></span>
+                <span class="p-spike mid-left-1"></span>
+                <span class="p-spike mid-center"></span>
+                <span class="p-spike mid-right-1"></span>
+                <span class="p-spike bot-left"></span>
+                <span class="p-spike bot-right"></span>
+              </div>
+            </div>
+            <div class="handle-wrap">
+              <div class="handle-shaft"></div>
+              <div class="handle-ring"></div>
+            </div>
+            <div class="bangmangi-aurora"></div>
+          </div>
+          <p class="loading-text">깨비가 프리미엄 사주 비책을<br />조율하고 있으니 잠시만 기다려줘...</p>
+        </div>
+      </div>
+
+      <div class="kkaebi-light"></div>
+
+      <!-- 공통 서비스 로고 영역 -->
+      <header class="kkaebi-header">
+        <h1 class="logo">
+          깨비랑
+          <span class="logo-icon">
+            <img src="./assets/images/img_kkebi.png" alt="깨비랑 로고" />
+          </span>
+        </h1>
+      </header>
+
+      <!-- [SCREEN 3] 프리미엄 심층 운세 풀이 세션 -->
+      <section class="premium-report-zone">
+        <div class="premium-header-card">
+          <p class="report-serial">인증번호 특별 풀이서 제 2027-호</p>
+          <h2 class="premium-main-title">
+            <span class="user-highlight" id="premium-user-placeholder">Guest</span>
+            님의 2027년 정미년 사주 원국 총평
+          </h2>
+          <div class="horizontal-divider"></div>
+          <p class="premium-summary-text" id="premium-summary">AI 리포트를 생성하고 있습니다.</p>
+        </div>
+
+        <h3 class="premium-section-title">2027년 정미년 열두 달 월별 상세 가이드</h3>
+
+        <div id="kkaebi-sticky-sensor"></div>
+        <!-- 4단 테마 스위칭 탭 메뉴 영역 -->
+        <div class="premium-theme-tabs">
+          <button type="button" class="theme-tab-btn active" data-theme="summary">월별 총운</button>
+          <button type="button" class="theme-tab-btn" data-theme="finance">재물운</button>
+          <button type="button" class="theme-tab-btn" data-theme="relation">연애 · 인간관계</button>
+          <button type="button" class="theme-tab-btn" data-theme="wellness">건강 · 주의점</button>
+        </div>
+
+        <!-- 공통 타임라인 래퍼 (자바스크립트가 내부 카드를 동적으로 비우고 12달을 채웁니다) -->
+        <div class="premium-monthly-timeline" id="kkaebi-monthly-timeline-display">
+          <!-- 스크립트에 의해 월별 카드 12개가 이곳에 자동 생성 및 교체됩니다 -->
+        </div>
+
+        <!-- 상/하반기 종합 요약 데이터 및 규칙 스탯 공간 (하단 고정 배치) -->
+        <div id="premium-extended-details-zone">
+          <!-- [2번 탭 선택시 등장] 재물 비책 패널 -->
+          <div class="premium-finance-zone hidden" id="display-finance-meta">
+            <div class="finance-period-grid">
+              <div class="period-card">
+                <h4 class="period-title">2027년 상반기 재물 기운</h4>
+                <p class="period-desc" id="finance-half-1">데이터를 분석하고 있습니다.</p>
+              </div>
+              <div class="period-card">
+                <h4 class="period-title">2027년 하반기 재물 기운</h4>
+                <p class="period-desc" id="finance-half-2">데이터를 분석하고 있습니다.</p>
+              </div>
+            </div>
+            <div class="finance-rules-box">
+              <h4 class="rules-title">깨비가 전하는 재물운 상승 행동 비책</h4>
+              <ul class="rules-list">
+                <li id="finance-rule-1">지침을 도출하고 있습니다.</li>
+                <li id="finance-rule-2">지침을 도출하고 있습니다.</li>
+                <li id="finance-rule-3">지침을 도출하고 있습니다.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 핵심 요약 스탯 종합 점수 카드 -->
+        <div class="premium-stats-card">
+          <h3 class="stats-title">2027년 수호신 깨비의 핵심 요약 스탯</h3>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <span class="stat-label">재물 축적도</span>
+              <div class="stat-bar-bg"><div class="stat-bar-fill" id="bar-finance" style="width: 0%"></div></div>
+              <span class="stat-value" id="val-finance">0퍼센트</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">인연 귀인지수</span>
+              <div class="stat-bar-bg"><div class="stat-bar-fill" id="bar-relation" style="width: 0%"></div></div>
+              <span class="stat-value" id="val-relation">0퍼센트</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">행운의 방위</span>
+              <span class="stat-text-value" id="val-direction">분석 중</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">행운의 색상</span>
+              <span class="stat-text-value" id="val-color">분석 중</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="premium-secret-card">
+          <h3 class="secret-title">너에게만 전하는 깨비랑의 일상 비책</h3>
+          <p class="secret-desc" id="premium-secret">데이터를 분석하고 있습니다.</p>
+        </div>
+
+        <div class="premium-action-zone">
+          <button type="button" class="btn-premium-share" id="shareKkaebiBtn">영험한 깨비랑을 지인에게 추천하기</button>
+          <button type="button" class="btn-premium-friend" id="friendBtn">깨비랑과 친구맺고 운세 및 고민 상담하기</button>
+          <button type="button" class="btn-premium-home" id="backToHomeBtn">운세 첫 화면으로 돌아가기</button>
+        </div>
+      </section>
+
+      <!-- 공통 푸터 영역 -->
+      <footer class="kkaebi-footer">
+        <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
+        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
+      </footer>
+    </main>
+    <!-- [MODAL] -->
+    <div id="kkaebiModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">매일 아침, 깨비랑의 다정한 운세가 배달됩니다</h4>
+          <button type="button" class="modal-close-btn" id="modalCloseBtn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">깨비랑 카카오 채널을 추가하시면 매주 월요일 아침 나만을 위한 특별한 맞춤 조언 알림톡을 보내드려요. 지금 친구가 되고 일상 속 소중한 행운 타이밍을 놓치지 마세요.</p>
+          <div class="modal-action-zone">
+            <button type="button" class="btn-modal-kakao" id="kakaoLinkBtn">카카오톡으로 깨비랑 추가하기</button>
+            <button type="button" class="btn-modal-close-today" id="modalCloseTodayBtn">오늘은 그냥 넘어가기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/premium.js"></script>
+  </body>
+</html>

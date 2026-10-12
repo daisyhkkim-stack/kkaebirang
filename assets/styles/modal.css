@@ -1,0 +1,171 @@
+@charset "UTF-8";
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(7, 4, 18, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.hidden {
+  display: none !important;
+}
+.modal-overlay .modal-content {
+  width: 100%;
+  max-width: 440px;
+  background: #120e2b;
+  border: 1px solid rgba(23, 224, 168, 0.2);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  animation: modalScaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.modal-overlay .modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.modal-overlay .modal-content .modal-header .modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.4;
+  letter-spacing: -0.4px;
+}
+.modal-overlay .modal-content .modal-header .modal-close-btn {
+  background: transparent;
+  border: none;
+  color: #b3b0c2;
+  opacity: 0.5;
+  cursor: pointer;
+  display: flex;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+.modal-overlay .modal-content .modal-header .modal-close-btn:hover {
+  opacity: 1;
+}
+.modal-overlay .modal-content .modal-header .modal-close-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.modal-overlay .modal-content .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.modal-overlay .modal-content .modal-body .modal-desc {
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: #b3b0c2;
+  letter-spacing: -0.2px;
+  word-break: keep-all;
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone button {
+  width: 100%;
+  height: 52px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone .btn-modal-kakao {
+  background: #fee500;
+  color: #191919;
+  border: none;
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone .btn-modal-kakao:hover {
+  filter: brightness(1.03);
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone .btn-modal-close-today {
+  background: transparent;
+  border: none;
+  color: #b3b0c2;
+  font-weight: 500;
+  font-size: 0.88rem;
+  opacity: 0.5;
+}
+.modal-overlay .modal-content .modal-body .modal-action-zone .btn-modal-close-today:hover {
+  opacity: 0.8;
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+/* 결제 예고 모달 내부 다정한 카피 레이아웃 및 버튼 스타일 통합 */
+#kkaebiPaymentModal .modal-content .modal-header .modal-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-desc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: #c9c6d6;
+  letter-spacing: -0.3px;
+  word-break: keep-all;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-desc strong {
+  color: #0ca678;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone .btn-modal-pay-execute {
+  font-family: inherit;
+  letter-spacing: -0.3px;
+  background: linear-gradient(90deg, #17e0a8 0%, #0ca678 100%);
+  color: #0b071e;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(23, 224, 168, 0.2);
+  transition: all 0.2s ease;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone .btn-modal-pay-execute:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 25px rgba(23, 224, 168, 0.35);
+  transform: translateY(-1px);
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone .btn-modal-pay-execute:active {
+  transform: translateY(1px);
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone .btn-modal-close-today {
+  font-size: 0.85rem;
+  letter-spacing: -0.2px;
+  opacity: 0.45;
+  background: transparent;
+  border: none;
+  color: #b3b0c2;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+#kkaebiPaymentModal .modal-content .modal-body .modal-action-zone .btn-modal-close-today:hover {
+  opacity: 0.8;
+}

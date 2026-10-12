@@ -1,0 +1,658 @@
+@charset "UTF-8";
+@import url(style.css);
+@font-face {
+  font-family: "GyeonggiMillenniumTitle";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/TitleV.woff") format("woff");
+  font-weight: 800;
+  font-display: swap;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0b071e;
+  background-image: radial-gradient(circle at 50% 20%, rgba(106, 49, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 80%, rgba(23, 224, 168, 0.05) 0%, transparent 60%);
+  color: #ffffff;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  word-break: keep-all;
+}
+
+.kkaebi-light {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  /* 레이어 에이: 천천히 올라가는 미세 반딧불 무리층 */
+  /* 레이어 비: 조금 더 빠르게 교차하며 올라가는 미세 반딧불 무리층 */
+}
+.kkaebi-light::before, .kkaebi-light::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: 0;
+  right: 0;
+  bottom: -10%; /* 무한 상승 구동을 위한 물리 상하 여백 공간 확보 */
+  pointer-events: none; /* 클릭 및 폼 인풋창 선택 방해 차단 */
+  z-index: 0;
+}
+.kkaebi-light {
+  /* 레이어 에이 상세 설정 */
+}
+.kkaebi-light::before {
+  background-image: radial-gradient(1px 1px at 15% 25%, #ffffff 100%, transparent), radial-gradient(8px 8px at 15% 25%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 82% 15%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 82% 15%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 30% 45%, #ffffff 100%, transparent), radial-gradient(7px 7px at 30% 45%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 73% 50%, #fffbcf 100%, transparent), radial-gradient(12px 12px at 73% 50%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1.5px 1.5px at 22% 70%, #ffffff 100%, transparent), radial-gradient(9px 9px at 22% 70%, rgba(230, 255, 0, 0.15) 100%, transparent), radial-gradient(1px 1px at 88% 75%, #ffffff 100%, transparent), radial-gradient(7px 7px at 88% 75%, rgba(23, 224, 168, 0.18) 100%, transparent), radial-gradient(2px 2px at 40% 90%, #fffbcf 100%, transparent), radial-gradient(11px 11px at 40% 90%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 20초 주기 무한 상승 애니메이션 적용 */
+  animation: kkaebiSwayUpA 20s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 아스라이 사라지는 마스크 투명도 필터 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+.kkaebi-light {
+  /* 레이어 비 상세 설정 */
+}
+.kkaebi-light::after {
+  background-image: radial-gradient(1px 1px at 50% 30%, #ffffff 100%, transparent), radial-gradient(8px 8px at 50% 30%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(1.5px 1.5px at 65% 60%, #ffffff 100%, transparent), radial-gradient(10px 10px at 65% 60%, rgba(23, 224, 168, 0.2) 100%, transparent), radial-gradient(1px 1px at 10% 65%, #ffffff 100%, transparent), radial-gradient(8px 8px at 10% 65%, rgba(23, 224, 168, 0.15) 100%, transparent), radial-gradient(2px 2px at 28% 80%, #ffffff 100%, transparent), radial-gradient(12px 12px at 28% 80%, rgba(23, 224, 168, 0.22) 100%, transparent), radial-gradient(1.5px 1.5px at 52% 95%, #fffbcf 100%, transparent), radial-gradient(10px 10px at 52% 95%, rgba(230, 255, 0, 0.18) 100%, transparent), radial-gradient(1px 1px at 78% 85%, #ffffff 100%, transparent), radial-gradient(7px 7px at 78% 85%, rgba(23, 224, 168, 0.15) 100%, transparent);
+  /* 레이어 에이와 속도 차이를 두어 깊이감을 주는 14초 주기 시차 비행 애니메이션 적용 */
+  animation: kkaebiSwayUpB 12s linear infinite;
+  /* 상단 하늘 방향으로 갈수록 투명하게 정돈되는 동일 마스크 처리 */
+  -webkit-mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(to top, rgb(0, 0, 0) 35%, rgba(0, 0, 0, 0.3) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* 레이어 에이: 잔잔한 사인파 흔들림 및 부드러운 호흡식 불빛 점멸 */
+@keyframes kkaebiSwayUpA {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-8.33%) translateX(8px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-16.66%) translateX(-4px);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translateY(-25%) translateX(10px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.4;
+  }
+}
+/* 레이어 비: 날카로운 지그재그 비행 및 빠른 팔랑거림 반짝임 연출 */
+@keyframes kkaebiSwayUpB {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+  20% {
+    transform: translateY(-6.66%) translateX(-12px);
+    opacity: 0.2;
+    filter: blur(1.5px);
+  }
+  40% {
+    transform: translateY(-13.33%) translateX(10px);
+    opacity: 0.9;
+    filter: blur(1.2px);
+  }
+  60% {
+    transform: translateY(-20%) translateX(-8px);
+    opacity: 0.3;
+    filter: blur(1.6px);
+  }
+  80% {
+    transform: translateY(-26.66%) translateX(12px);
+    opacity: 1;
+    filter: blur(1.1px);
+  }
+  100% {
+    transform: translateY(-33.33%) translateX(0);
+    opacity: 0.7;
+    filter: blur(1px);
+  }
+}
+@keyframes kkaebiFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes kkaebiSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.kkaebi-container {
+  width: 100%;
+  max-width: 540px;
+  padding: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+.kkaebi-container .kkaebi-header,
+.kkaebi-container .kkaebi-intro,
+.kkaebi-container .kkaebi-form,
+.kkaebi-container #kkaebi-step-result,
+.kkaebi-container .kkaebi-step-content {
+  position: relative;
+  z-index: 1;
+}
+
+.kkaebi-header .logo {
+  font-family: "GyeonggiMillenniumTitle", sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: -1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+}
+.kkaebi-header .logo .logo-icon {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: kkaebiFloat 2s ease-in-out infinite alternate;
+}
+.kkaebi-header .logo .logo-icon img {
+  width: 100%;
+  transform: translate(0, -7px);
+}
+
+/* ----------------===================================---------------- */
+/* [SCREEN 3] 프리미엄 심층 운세 풀이 세션 */
+/* ----------------===================================---------------- */
+.premium-report-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+  /* 2배 확장판 마스터 총평 카드 */
+}
+.premium-report-zone .premium-header-card {
+  background: rgba(18, 14, 43, 0.6);
+  border: 1px dashed rgba(23, 224, 168, 0.45);
+  border-radius: 20px;
+  padding: 24px 20px; /* 모바일 터치 패딩 최적화 */
+  text-align: center;
+  box-shadow: inset 0 0 20px rgba(23, 224, 168, 0.05);
+}
+.premium-report-zone .premium-header-card .report-serial {
+  font-size: 0.75rem;
+  color: #17e0a8;
+  opacity: 0.6;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.premium-report-zone .premium-header-card .premium-main-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+}
+.premium-report-zone .premium-header-card .premium-main-title .user-highlight {
+  color: #17e0a8;
+  text-shadow: 0 0 10px rgba(23, 224, 168, 0.3);
+}
+.premium-report-zone .premium-header-card .horizontal-divider {
+  width: 30px;
+  height: 1.5px;
+  background: #17e0a8;
+  margin: 16px auto;
+  opacity: 0.4;
+}
+.premium-report-zone .premium-header-card .premium-summary-text {
+  font-size: 0.925rem;
+  line-height: 1.65;
+  color: #c9c6d6;
+  word-break: keep-all;
+  opacity: 0.9;
+}
+.premium-report-zone {
+  /* 타임라인 가이드 대제목 */
+}
+.premium-report-zone .premium-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 4px;
+  margin-bottom: -4px;
+  letter-spacing: -0.4px;
+}
+.premium-report-zone {
+  /* 🌟 [모바일 최적화] 12달 수직 타임라인 스택 구조 */
+}
+.premium-report-zone .premium-monthly-timeline {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* 모바일에서 촘촘하게 배열 */
+}
+.premium-report-zone .premium-monthly-timeline.hidden {
+  display: none !important;
+}
+.premium-report-zone .premium-monthly-timeline .month-card {
+  display: flex;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 16px;
+  gap: 14px; /* 좌측 뱃지와 우측 본문 간격 콤팩트화 */
+  align-items: flex-start;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  /* 좌측 월 표시 네온 미니 뱃지 */
+}
+.premium-report-zone .premium-monthly-timeline .month-card .month-number {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #17e0a8;
+  background: rgba(23, 224, 168, 0.06);
+  border: 1px solid rgba(23, 224, 168, 0.2);
+  padding: 5px 10px;
+  border-radius: 8px;
+  min-width: 40px; /* 가로폭 슬림화하여 본문 영역 대폭 확보 */
+  text-align: center;
+  flex-shrink: 0;
+  position: absolute;
+}
+.premium-report-zone .premium-monthly-timeline .month-card {
+  /* 우측 본문 설명 셋 */
+}
+.premium-report-zone .premium-monthly-timeline .month-card .month-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1; /* 모바일 우측 공간 자동 풀 확장 */
+}
+.premium-report-zone .premium-monthly-timeline .month-card .month-body .month-title {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.3px;
+  line-height: 28px;
+}
+.premium-report-zone .premium-monthly-timeline .month-card .month-body .month-desc {
+  font-size: 0.86rem; /* 화면 너비 대비 폰트 배율 최적화 */
+  line-height: 1.55;
+  color: #b3b0c2;
+  opacity: 0.85;
+  word-break: keep-all;
+}
+.premium-report-zone .premium-monthly-timeline .month-card {
+  /* 터치 및 마우스 반응 처리 */
+}
+.premium-report-zone .premium-monthly-timeline .month-card:hover {
+  background: rgba(23, 224, 168, 0.02);
+  border-color: rgba(23, 224, 168, 0.25);
+}
+.premium-report-zone .premium-monthly-timeline .month-card:hover .month-body .month-desc {
+  opacity: 1;
+  color: #ffffff;
+}
+.premium-report-zone {
+  /* 사주 요약 스탯 분석 카드 */
+}
+.premium-report-zone .premium-stats-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+}
+.premium-report-zone .premium-stats-card .stats-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -0.3px;
+}
+.premium-report-zone .premium-stats-card .stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: #b3b0c2;
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item .stat-label {
+  width: 80px; /* 레이블 가로 고정 최소화 */
+  flex-shrink: 0;
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item .stat-bar-bg {
+  flex: 1;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item .stat-bar-bg .stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #17e0a8);
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item .stat-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #17e0a8;
+  width: 50px;
+  text-align: right;
+}
+.premium-report-zone .premium-stats-card .stats-grid .stat-item .stat-text-value {
+  font-weight: 600;
+  color: #ffffff;
+}
+.premium-report-zone {
+  /* 도깨비 일상 비책 카드 */
+}
+.premium-report-zone .premium-secret-card {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.07) 0%, rgba(23, 224, 168, 0.05) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.5);
+  border-radius: 18px;
+  padding: 20px;
+}
+.premium-report-zone .premium-secret-card .secret-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 5px 0 20px;
+  letter-spacing: -0.4px;
+}
+.premium-report-zone .premium-secret-card .secret-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #c9c6d6;
+  word-break: keep-all;
+  padding: 0 10px;
+}
+.premium-report-zone .premium-action-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.premium-report-zone .premium-action-zone [class^=btn-premium-] {
+  width: 100%;
+  height: 54px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  transition: all 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.premium-report-zone .premium-action-zone [class^=btn-premium-]:active {
+  transform: scale(0.99);
+}
+.premium-report-zone .premium-action-zone .btn-premium-share {
+  background: rgba(23, 224, 168, 0.08);
+  border: 1px solid rgba(23, 224, 168, 0.35);
+  color: #17e0a8;
+}
+.premium-report-zone .premium-action-zone .btn-premium-share:hover {
+  background: rgba(23, 224, 168, 0.15);
+  border-color: #17e0a8;
+  box-shadow: 0 4px 15px rgba(23, 224, 168, 0.15);
+}
+.premium-report-zone .premium-action-zone .btn-premium-friend {
+  background: rgba(176, 38, 255, 0.08);
+  border: 1px solid rgba(176, 38, 255, 0.35);
+  color: #b026ff;
+}
+.premium-report-zone .premium-action-zone .btn-premium-friend:hover {
+  background: rgba(176, 38, 255, 0.15);
+  border-color: #b026ff;
+  box-shadow: 0 4px 15px rgba(176, 38, 255, 0.15);
+}
+.premium-report-zone .premium-action-zone .btn-premium-home {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #8580a2;
+}
+.premium-report-zone .premium-action-zone .btn-premium-home:hover {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* 태블릿 이상 기기 대응을 위한 반응형 가이드 스케일 */
+@media (min-width: 400px) {
+  .premium-page .premium-report-zone .premium-header-card .premium-main-title {
+    font-size: 1.45rem;
+  }
+  .premium-page .premium-report-zone .premium-monthly-timeline .month-card .month-body .month-title {
+    font-size: 1.05rem;
+  }
+  .premium-page .premium-report-zone .premium-monthly-timeline .month-card .month-body .month-desc {
+    font-size: 0.9rem;
+  }
+}
+#kkaebi-sticky-sensor {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  top: 0;
+  pointer-events: none;
+}
+
+/* 4단 테마 스위칭 탭 메뉴 스타일 */
+.premium-theme-tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+  margin: 16px 0 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: transparent;
+}
+.premium-theme-tabs.is-sticky {
+  background: rgba(12, 15, 35, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 2px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(23, 224, 168, 0.15);
+}
+.premium-theme-tabs .theme-tab-btn {
+  flex: 1;
+  background: transparent;
+  color: #8580a2;
+  border: none;
+  padding: 12px 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  line-height: 1;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-theme-tabs .theme-tab-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.premium-theme-tabs .theme-tab-btn {
+  /* 활성화시 에메랄드 발광 효과 지정 */
+}
+.premium-theme-tabs .theme-tab-btn.active {
+  color: #ffffff;
+  background-color: rgba(23, 224, 168, 0.2);
+  border: 1px solid rgba(23, 224, 168, 0.35);
+}
+
+.month-desc.fade-refresh {
+  animation: fadeInPage 0.4s ease-out forwards;
+}
+
+/* 재물운 전용 독립 화면 스타일 */
+.premium-finance-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.premium-finance-zone.hidden {
+  display: none !important;
+}
+.premium-finance-zone .finance-period-grid {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+.premium-finance-zone .finance-period-grid .period-card {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 24px;
+  border-radius: 16px;
+  text-align: left;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.premium-finance-zone .finance-period-grid .period-card:hover {
+  transform: translateY(-4px);
+  border-color: #17e0a8;
+}
+.premium-finance-zone .finance-period-grid .period-card .period-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #17a2ff;
+  margin-bottom: 12px;
+}
+.premium-finance-zone .finance-period-grid .period-card .period-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #c9c6d6;
+}
+.premium-finance-zone .finance-rules-box {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px dashed rgba(23, 224, 168, 0.3);
+  padding: 24px;
+  border-radius: 16px;
+  text-align: left;
+}
+.premium-finance-zone .finance-rules-box .rules-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #17e0a8;
+  margin-bottom: 16px;
+}
+.premium-finance-zone .finance-rules-box .rules-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.premium-finance-zone .finance-rules-box .rules-list li {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #b3b0c2;
+  padding-left: 16px;
+  position: relative;
+}
+.premium-finance-zone .finance-rules-box .rules-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #17e0a8;
+}
+
+/* 연애운 전용 패널 영역 스타일 */
+.premium-relation-zone {
+  width: 100%;
+}
+.premium-relation-zone.hidden {
+  display: none !important;
+}
+.premium-relation-zone .relation-main-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+}
+.premium-relation-zone .relation-main-card .relation-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #17a2ff;
+  margin-bottom: 12px;
+}
+.premium-relation-zone .relation-main-card .relation-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #c9c6d6;
+}
+
+/* 건강운 전용 패널 영역 스타일 */
+.premium-wellness-zone {
+  width: 100%;
+}
+.premium-wellness-zone.hidden {
+  display: none !important;
+}
+.premium-wellness-zone .wellness-main-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+}
+.premium-wellness-zone .wellness-main-card .wellness-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #17a2ff;
+  margin-bottom: 12px;
+}
+.premium-wellness-zone .wellness-main-card .wellness-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #c9c6d6;
+}
+
+@media (max-width: 600px) {
+  .premium-finance-zone .finance-period-grid {
+    flex-direction: column;
+  }
+}
