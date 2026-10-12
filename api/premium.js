@@ -56,11 +56,11 @@ export default async function handler(req, res) {
     try {
       attempt++;
       const response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+        model: "gemini-3.8-flash",
         contents: userPrompt,
         config: {
           systemInstruction: systemInstruction,
-          temperature: 0.85,
+          temperature: 0.35,
           responseMimeType: "application/json",
           responseSchema: {
             type: "OBJECT",
