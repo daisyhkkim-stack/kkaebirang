@@ -903,4 +903,76 @@
   }
 }
 
+/* --- 🔮 깨비랑 프리미엄 만세력 부적 카드 레이아웃 --- */
+.saju-commentary-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #0fa37f;
+  font-weight: 500;
+}
+.saju-pillar-container {
+  .saju-pillar-card {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 4px;
+    width: 68px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ⭐ 나 자신(일주)을 상징하는 카드는 수호 네온 조명 활성화 */
+  .saju-pillar-card.is-me {
+    border: 1px solid rgba($neon-emerald, 0.5);
+    box-shadow: 0 0 15px rgba($neon-emerald, 0.25);
+    background: #191624;
+  }
+
+  .saju-pillar-card.is-me .pillar-label {
+    color: $neon-emerald;
+    font-weight: bold;
+  }
+
+  .saju-pillar-card .pillar-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 1px;
+  }
+
+  .saju-pillar-card .pillar-value {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column; /* 천간과 지지가 부적처럼 위아래로 정렬 */
+    gap: 4px;
+    line-height: 1.2;
+  }
+
+  /* --- 🎨 정통 명리학 오방색 디지털 컬러 매핑 --- */
+  .oheng-wood {
+    color: #4caf50;
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+  } /* 木: 청록색 */
+  .oheng-fire {
+    color: #ff5252;
+    text-shadow: 0 0 8px rgba(255, 82, 82, 0.3);
+  } /* 火: 주사 적색 */
+  .oheng-earth {
+    color: #ffd740;
+    text-shadow: 0 0 8px rgba(255, 215, 64, 0.3);
+  } /* 土: 황토 노란색 */
+  .oheng-metal {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  } /* 金: 순백색 */
+  .oheng-water {
+    color: #40c4ff;
+    text-shadow: 0 0 8px rgba(64, 196, 255, 0.3);
+  } /* 水: 바다 푸른색 */
+}
+
 @import url(modal.css);
