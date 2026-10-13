@@ -16,7 +16,7 @@
       <div id="kkaebi-loading" class="kkaebi-loading-overlay hidden">
         <div class="loading-box">
           <kkaebi-loading></kkaebi-loading>
-          <p class="loading-text">
+          <p class="loading-text" id="dynamic-loading-text">
             깨비가 방망이를 휘둘러
             <br />
             당신의 2027년 운명을 계산하고 있습니다...
@@ -68,9 +68,9 @@
           </div>
         </div>
 
-        <div class="kkaebi-main-action-zone" style="display: flex; flex-direction: column; gap: 12px; width: 100%">
+        <!-- <div class="kkaebi-main-action-zone" style="display: flex; flex-direction: column; gap: 12px; width: 100%">
           <button type="button" class="btn-next-step" id="finalCtaBtn">2027년 월별 총운과 상세운세 확인하기</button>
-        </div>
+        </div> -->
         <div class="kkaebi-next-teaser">
           <div class="service-intro-box">
             <p class="intro-headline">나만을 위한 일상 속 수호신, 깨비랑과 친구가 되어보세요</p>
@@ -107,12 +107,12 @@
               <strong>1,000원</strong>
               결제가 진행되고
             </s>
-            <strong>(지금은 완전 무료!!)</strong>
             , 완료되는 즉시 너만을 위해 준비한 특별한 이야기 보따리가 전부 열릴 거야.
           </p>
+          <p class="modal-desc"><strong>(프리미엄 컨텐츠 내용을 구상중입니다.)</strong></p>
           <div class="modal-action-zone">
-            <button type="button" class="btn-modal-pay-execute" id="realPayStartBtn">확인하고 이야기 듣기</button>
-            <button type="button" class="btn-modal-close-today" id="payModalCancelBtn">조금 더 고민할게</button>
+            <!-- <button type="button" class="btn-modal-pay-execute" id="realPayStartBtn">확인하고 이야기 듣기</button> -->
+            <button type="button" class="btn-modal-close-today" id="payModalCancelBtn">지금은 그냥 나가기</button>
           </div>
         </div>
       </div>

@@ -27,13 +27,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (userPlaceholder) userPlaceholder.textContent = userName;
 
   // 처음 진입하든, 새로고침(F5)을 하든 생년월일 데이터만 있으면 무조건 방망이를 돌립니다.
+  const loadingPhrases = [
+    "깨비가 방망이를 휘둘러<br />당신의 2027년 운명을 계산하고 있습니다...",
+    "한국천문연구원 정본 만세력을 기반으로<br />당신의 타고난 사주 원국 기둥을 조립하는 중...",
+    "당신의 영혼을 뜻하는 '일간' 기운과<br />2027년 정미년 오행의 상생·상극 대조 중...",
+    "재물운의 물줄기를 트고<br />인간관계 속 스쳐 갈 귀인의 타이밍을 유추하는 중...",
+    "뜨거운 정화(火)의 화기를 다스릴<br />맞춤형 액땜 건강 처방전을 봉인하는 중...",
+    "아이고 머리야.. <br />해석하는데 예상보다 시간이 많이 걸리고 있어... <br /> 조금만 더 기다려줘,, 깨비!",
+  ];
+
+  let phraseIndex = 0;
+  let loadingInterval = null;
+
+  // 💡 4초 주기 멘트 단독 스위칭 헬퍼 함수
+  const startKkaebiTextAnimation = () => {
+    const textNode = document.getElementById("dynamic-loading-text");
+    if (!textNode) return;
+
+    loadingInterval = setInterval(() => {
+      phraseIndex = (phraseIndex + 1) % loadingPhrases.length;
+
+      // 방망이 제어문은 완전히 배제하고, 오직 텍스트만 스무스하게 전환
+      textNode.innerHTML = loadingPhrases[phraseIndex];
+    }, 4000); // 4초 주기 명세 정확히 준수
+  };
+
+  // API 통신 및 가동 제어부
   if (birthDate) {
     const loadingOverlay = document.getElementById("kkaebi-loading");
-    if (loadingOverlay) loadingOverlay.classList.remove("hidden");
+    if (loadingOverlay) {
+      loadingOverlay.classList.remove("hidden");
+      startKkaebiTextAnimation(); // 💡 텍스트 타이머만 활성화
+    }
 
     try {
       // 요청하신 원본 배포 API 주소로 직접 연동 설정 완료
-      const response = await fetch("./api/saju", {
+      const response = await fetch("/api/saju", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ birthDate, userName, gender: selectedGender }),
@@ -45,10 +74,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       // result.js 내부 fetch response 수신 성공 분기점 처리부
       if (resData.success && resData.data) {
         // 1. 기존 삼재 운세 텍스트 바인딩
-        if (financeParagraph) financeParagraph.textContent = resData.data.finance;
-        if (relationParagraph) relationParagraph.textContent = resData.data.relation;
-        if (wellnessParagraph) wellnessParagraph.textContent = resData.data.wellness;
-
+        if (financeParagraph) financeParagraph.innerHTML = resData.data.finance;
+        if (relationParagraph) relationParagraph.innerHTML = resData.data.relation;
+        if (wellnessParagraph) wellnessParagraph.innerHTML = resData.data.wellness;
         // 2. 💡 [신규] 백엔드가 만세력 라이브러리로 계산해 준 명리학 메타데이터 추출
         // result.js 내부 resData.success 성공 분기 속 meta 처리부 교체
         const meta = resData.data.meta;
