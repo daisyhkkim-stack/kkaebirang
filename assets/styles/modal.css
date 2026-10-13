@@ -43,21 +43,17 @@
   letter-spacing: -0.4px;
 }
 .modal-overlay .modal-content .modal-header .modal-close-btn {
-  background: transparent;
+  width: 24px;
+  height: 24px;
+  background: url(../images/ic_close.svg) no-repeat 50% 50%;
   border: none;
-  color: #b3b0c2;
   opacity: 0.5;
   cursor: pointer;
-  display: flex;
   padding: 4px;
   transition: opacity 0.2s;
 }
 .modal-overlay .modal-content .modal-header .modal-close-btn:hover {
   opacity: 1;
-}
-.modal-overlay .modal-content .modal-header .modal-close-btn svg {
-  width: 20px;
-  height: 20px;
 }
 .modal-overlay .modal-content .modal-body {
   display: flex;

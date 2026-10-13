@@ -40,11 +40,11 @@ body {
 .kkaebi-light::before, .kkaebi-light::after {
   content: "";
   position: absolute;
-  top: -10%;
+  top: -30%;
   left: 0;
   right: 0;
-  bottom: -10%; /* 무한 상승 구동을 위한 물리 상하 여백 공간 확보 */
-  pointer-events: none; /* 클릭 및 폼 인풋창 선택 방해 차단 */
+  bottom: -30%;
+  pointer-events: none;
   z-index: 0;
 }
 .kkaebi-light {
@@ -233,8 +233,9 @@ body {
   width: 60px;
   height: 100%;
   background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
   border: 1.5px solid rgba(23, 224, 168, 0.3);
-  border-radius: 12px;
+  border-radius: 8px;
   color: #8580a2;
   font-size: 1.05rem;
   font-weight: 600;
@@ -251,13 +252,51 @@ body {
   color: #ffffff;
   box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
 }
+.kkaebi-form .input-group-row .gender-group.lunar .lunar-toggle-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.kkaebi-form .input-group-row .gender-group.lunar .hidden-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.kkaebi-form .input-group-row .gender-group.lunar .btn-lunar-fake {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(5px);
+  border: 1.5px solid rgba(23, 224, 168, 0.3);
+  border-radius: 8px;
+  color: #8580a2;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.kkaebi-form .input-group-row .gender-group.lunar .btn-lunar-fake:hover {
+  border-color: rgba(23, 224, 168, 0.7);
+  color: #ffffff;
+}
+.kkaebi-form .input-group-row .gender-group.lunar .hidden-checkbox:checked + .btn-lunar-fake {
+  border-color: #17e0a8;
+  background: rgba(23, 224, 168, 0.1);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(23, 224, 168, 0.2);
+}
 .kkaebi-form .input-group {
   position: relative;
   width: 100%;
   height: 64px;
   background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
   border: 1.5px solid rgba(23, 224, 168, 0.3);
-  border-radius: 12px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -329,13 +368,63 @@ body {
   color: #17e0a8;
   opacity: 0.9;
 }
+.kkaebi-form .unknown-time-container {
+  padding-left: 4px;
+}
+.kkaebi-form .unknown-time-container .unknown-time-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #959ea9;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+.kkaebi-form .unknown-time-container .unknown-time-label:hover {
+  color: #ffffff;
+}
+.kkaebi-form .unknown-time-container .unknown-time-label:hover .checkbox-time {
+  border-color: rgba(23, 224, 168, 0.7);
+}
+.kkaebi-form .unknown-time-container .checkbox-time {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  border-radius: 3px;
+  background: transparent;
+  border: 1px solid rgba(23, 224, 168, 0.3);
+  transition: all 0.3s ease;
+}
+.kkaebi-form .unknown-time-container .checkbox-time:checked {
+  border-color: #17e0a8;
+  background: rgba(23, 224, 168, 0.1);
+  box-shadow: 0 0 10px rgba(23, 224, 168, 0.3);
+}
+.kkaebi-form .unknown-time-container .checkbox-time:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid #17e0a8;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
 .kkaebi-form .btn-submit {
   width: 100%;
   height: 64px;
   margin-top: 16px;
   background: linear-gradient(90deg, #3bf7be 0%, #15dfcb 100%);
   border: none;
-  border-radius: 14px;
+  border-radius: 10px;
   color: #030d1a;
   font-size: 1.15rem;
   font-weight: 700;
@@ -410,7 +499,7 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(23, 224, 168, 0.15);
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 24px 26px;
   display: flex;
   flex-direction: column;
@@ -469,8 +558,9 @@ body {
   width: 100%;
   text-align: center;
   padding: 24px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid rgba(139, 92, 246, 0.1);
+  backdrop-filter: blur(8px);
 }
 #kkaebi-step-result .kkaebi-next-teaser .teaser-text {
   font-size: 1rem;
@@ -483,7 +573,7 @@ body {
   height: 64px;
   background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   color: #ffffff;
   font-size: 1.15rem;
   font-weight: 700;
@@ -576,7 +666,7 @@ body {
   height: 64px;
   background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   color: #ffffff;
   font-size: 1.15rem;
   font-weight: 700;
@@ -602,7 +692,7 @@ body {
   width: 100%;
   height: 64px;
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   color: #ffffff;
   font-size: 1.15rem;
   font-weight: 700;
@@ -634,7 +724,7 @@ body {
 .kkaebi-twin-buttons button {
   flex: 1;
   height: 52px;
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;

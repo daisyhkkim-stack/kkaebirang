@@ -39,11 +39,11 @@ body {
 .kkaebi-light::before, .kkaebi-light::after {
   content: "";
   position: absolute;
-  top: -10%;
+  top: -30%;
   left: 0;
   right: 0;
-  bottom: -10%; /* 무한 상승 구동을 위한 물리 상하 여백 공간 확보 */
-  pointer-events: none; /* 클릭 및 폼 인풋창 선택 방해 차단 */
+  bottom: -30%;
+  pointer-events: none;
   z-index: 0;
 }
 .kkaebi-light {

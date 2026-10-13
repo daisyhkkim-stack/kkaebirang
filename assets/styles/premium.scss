@@ -16,7 +16,7 @@
   .premium-header-card {
     background: rgba(18, 14, 43, 0.6);
     border: 1px dashed rgba(23, 224, 168, 0.45);
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 24px 20px; /* 모바일 터치 패딩 최적화 */
     text-align: center;
     box-shadow: inset 0 0 20px rgba(23, 224, 168, 0.05);
@@ -82,9 +82,10 @@
 
     .month-card {
       display: flex;
-      background: rgba(255, 255, 255, 0.015);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 14px;
+      border-radius: 10px;
       padding: 16px;
       gap: 14px; /* 좌측 뱃지와 우측 본문 간격 콤팩트화 */
       align-items: flex-start;
@@ -100,7 +101,7 @@
         background: rgba(23, 224, 168, 0.06);
         border: 1px solid rgba(23, 224, 168, 0.2);
         padding: 5px 10px;
-        border-radius: 8px;
+        border-radius: 5px;
         min-width: 40px; /* 가로폭 슬림화하여 본문 영역 대폭 확보 */
         text-align: center;
         flex-shrink: 0;
@@ -147,8 +148,9 @@
   /* 사주 요약 스탯 분석 카드 */
   .premium-stats-card {
     background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 16px;
+    border-radius: 10px;
     padding: 20px;
 
     .stats-title {
@@ -209,12 +211,13 @@
   /* 도깨비 일상 비책 카드 */
   .premium-secret-card {
     background: linear-gradient(135deg, rgba(124, 58, 237, 0.07) 0%, rgba(23, 224, 168, 0.05) 100%);
+    backdrop-filter: blur(8px);
     border: 1px solid rgba(124, 58, 237, 0.5);
-    border-radius: 18px;
+    border-radius: 10px;
     padding: 20px;
 
     .secret-title {
-      font-size: 1.25rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #ffffff;
       margin: 5px 0 20px;
@@ -240,11 +243,12 @@
     [class^="btn-premium-"] {
       width: 100%;
       height: 54px;
-      border-radius: 14px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 0.95rem;
       font-weight: 700;
       letter-spacing: -0.3px;
+      backdrop-filter: blur(8px);
 
       transition: all 0.2s ease;
       -webkit-tap-highlight-color: transparent;
@@ -268,7 +272,7 @@
 
     .btn-premium-friend {
       background: rgba($neon-purple, 0.08);
-      border: 1px solid rgba($neon-purple, 0.35);
+      border: 1px solid rgba($neon-purple, 0.55);
       color: $neon-purple;
 
       &:hover {
@@ -287,25 +291,6 @@
         background: rgba(255, 255, 255, 0.03);
         border-color: rgba(255, 255, 255, 0.25);
         color: $text-primary;
-      }
-    }
-  }
-}
-
-/* 태블릿 이상 기기 대응을 위한 반응형 가이드 스케일 */
-@media (min-width: 400px) {
-  .premium-page {
-    .premium-report-zone {
-      .premium-header-card .premium-main-title {
-        font-size: 1.45rem;
-      }
-      .premium-monthly-timeline .month-card .month-body {
-        .month-title {
-          font-size: 1.05rem;
-        }
-        .month-desc {
-          font-size: 0.9rem;
-        }
       }
     }
   }
@@ -398,6 +383,8 @@
     .period-card {
       flex: 1;
       background-color: rgba(255, 255, 255, 0.015);
+      backdrop-filter: blur(8px);
+
       border: 1px solid rgba(255, 255, 255, 0.04);
       padding: 24px;
       border-radius: 16px;
@@ -412,7 +399,7 @@
       }
 
       .period-title {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         font-weight: 700;
         color: #17a2ff;
         margin-bottom: 12px;
@@ -428,16 +415,18 @@
 
   .finance-rules-box {
     background-color: rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(8px);
     border: 1px dashed rgba(23, 224, 168, 0.3);
     padding: 24px;
     border-radius: 16px;
     text-align: left;
 
     .rules-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #17e0a8;
       margin-bottom: 16px;
+      text-align: center;
     }
 
     .rules-list {

@@ -5,46 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>깨비랑 - 2027년 프리미엄 전체 운세 리포트</title>
     <link rel="stylesheet" href="./assets/styles/premium.css" />
+    <!-- 공통 레이아웃 웹 컴포넌트 스크립트 연결 -->
+    <script src="./common/layout.js"></script>
   </head>
   <body>
     <main class="kkaebi-container premium-page">
-      <!-- 고급 3D 도깨비방망이 프리미엄 비동기 로딩 스크린 -->
+      <!-- 프리미엄 로딩 스크린 -->
       <div id="kkaebi-loading" class="kkaebi-loading-overlay">
         <div class="loading-box">
-          <div class="kkaebi-bangmangi-premium">
-            <div class="bangmangi-body">
-              <div class="bangmangi-head-shape"></div>
-              <div class="spikes-grid">
-                <span class="p-spike top-left"></span>
-                <span class="p-spike top-right"></span>
-                <span class="p-spike mid-left-1"></span>
-                <span class="p-spike mid-center"></span>
-                <span class="p-spike mid-right-1"></span>
-                <span class="p-spike bot-left"></span>
-                <span class="p-spike bot-right"></span>
-              </div>
-            </div>
-            <div class="handle-wrap">
-              <div class="handle-shaft"></div>
-              <div class="handle-ring"></div>
-            </div>
-            <div class="bangmangi-aurora"></div>
-          </div>
-          <p class="loading-text">깨비가 프리미엄 사주 비책을<br />조율하고 있으니 잠시만 기다려줘...</p>
+          <kkaebi-loading></kkaebi-loading>
+          <p class="loading-text">
+            깨비가 프리미엄 사주 비책을
+            <br />
+            조율하고 있으니 잠시만 기다려줘...
+          </p>
         </div>
       </div>
 
       <div class="kkaebi-light"></div>
 
-      <!-- 공통 서비스 로고 영역 -->
-      <header class="kkaebi-header">
-        <h1 class="logo">
-          깨비랑
-          <span class="logo-icon">
-            <img src="./assets/images/img_kkebi.png" alt="깨비랑 로고" />
-          </span>
-        </h1>
-      </header>
+      <!-- 공통 커스텀 헤더 컴포넌트 조립 -->
+      <kkaebi-header></kkaebi-header>
 
       <!-- [SCREEN 3] 프리미엄 심층 운세 풀이 세션 -->
       <section class="premium-report-zone">
@@ -136,23 +117,15 @@
         </div>
       </section>
 
-      <!-- 공통 푸터 영역 -->
-      <footer class="kkaebi-footer">
-        <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
-        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
-      </footer>
+      <!-- 공통 커스텀 푸터 컴포넌트 조립 -->
+      <kkaebi-footer></kkaebi-footer>
     </main>
     <!-- [MODAL] -->
     <div id="kkaebiModal" class="modal-overlay hidden">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">매일 아침, 깨비랑의 다정한 운세가 배달됩니다</h4>
-          <button type="button" class="modal-close-btn" id="modalCloseBtn">
-            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
+          <button type="button" class="modal-close-btn" id="modalCloseBtn"></button>
         </div>
         <div class="modal-body">
           <p class="modal-desc">깨비랑 카카오 채널을 추가하시면 매주 월요일 아침 나만을 위한 특별한 맞춤 조언 알림톡을 보내드려요. 지금 친구가 되고 일상 속 소중한 행운 타이밍을 놓치지 마세요.</p>

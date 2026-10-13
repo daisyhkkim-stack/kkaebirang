@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>깨비랑 - 도깨비가 들려주는 오늘의 운세</title>
     <link rel="stylesheet" href="./assets/styles/style.css" />
+    <!-- 공통 레이아웃 웹 컴포넌트 스크립트 연결 -->
+    <script src="./common/layout.js"></script>
     <script>
       (function () {
         const userAgent = navigator.userAgent.toLowerCase();
@@ -23,17 +25,10 @@
     <main class="kkaebi-container">
       <div class="kkaebi-light"></div>
 
-      <!-- 공통 서비스 로고 영역 -->
-      <header class="kkaebi-header">
-        <h1 class="logo" style="cursor: pointer" onclick="location.href = '/'">
-          깨비랑
-          <span class="logo-icon">
-            <img src="./assets/images/img_kkebi.png" alt="깨비랑 로고" />
-          </span>
-        </h1>
-      </header>
+      <!-- 공통 커스텀 헤더 컴포넌트 조립 -->
+      <kkaebi-header></kkaebi-header>
 
-      <!-- [SCREEN 1] 진입 즉시 가동되는 도깨비방망이 로딩 스크린 (시작 시 active 상태) -->
+      <!-- 로딩 스크린 -->
       <div id="kkaebi-loading" class="kkaebi-loading-overlay">
         <div class="loading-box">
           <div class="kkaebi-bangmangi-premium">
@@ -55,7 +50,11 @@
             </div>
             <div class="bangmangi-aurora"></div>
           </div>
-          <p class="loading-text">메인에서 넘겨받은 사주 원국을 바탕으로<br />오늘 하루의 행운 지침을 주입하고 있습니다...</p>
+          <p class="loading-text">
+            메인에서 넘겨받은 사주 원국을 바탕으로
+            <br />
+            오늘 하루의 행운 지침을 주입하고 있습니다...
+          </p>
         </div>
       </div>
 
@@ -63,7 +62,10 @@
       <section id="kkaebi-step-result" class="kkaebi-step-content hidden">
         <div class="kkaebi-result-title">
           <p class="user-greet" id="today-date-placeholder">0000년 00월 00일</p>
-          <h2 class="main-title"><span id="user-placeholder">OO</span>님의 오늘 하루 운세 리포트</h2>
+          <h2 class="main-title">
+            <span id="user-placeholder">OO</span>
+            님의 오늘 하루 운세 리포트
+          </h2>
         </div>
 
         <div class="kkaebi-cards-container" id="sajuResultBox">
@@ -76,23 +78,20 @@
             <p class="card-desc" id="fortune-todayDaily"></p>
           </div>
 
-          <!-- 2. 행운 정보 2분할 가로 스택 -->
-          <div class="input-group-row" style="gap: 12px; margin-bottom: 20px">
-            <div class="fortune-card" style="margin-bottom: 0; flex: 1">
-              <div class="card-header-zone">
-                <div class="card-tag tag-money">COLOR</div>
-                <h3 class="card-title" style="font-size: 14px">행운의 색상</h3>
-              </div>
-              <p class="card-desc" id="fortune-luckyColor" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
+          <div class="fortune-card" style="margin-bottom: 0; flex: 1">
+            <div class="card-header-zone">
+              <div class="card-tag tag-money">COLOR</div>
+              <h3 class="card-title" style="font-size: 14px">행운의 색상</h3>
             </div>
+            <p class="card-desc" id="fortune-luckyColor" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
+          </div>
 
-            <div class="fortune-card" style="margin-bottom: 0; flex: 1">
-              <div class="card-header-zone">
-                <div class="card-tag tag-health">ITEM</div>
-                <h3 class="card-title" style="font-size: 14px">행운의 아이템</h3>
-              </div>
-              <p class="card-desc" id="fortune-luckyItem" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
+          <div class="fortune-card" style="margin-bottom: 0; flex: 1">
+            <div class="card-header-zone">
+              <div class="card-tag tag-health">ITEM</div>
+              <h3 class="card-title" style="font-size: 14px">행운의 아이템</h3>
             </div>
+            <p class="card-desc" id="fortune-luckyItem" style="font-weight: bold; font-size: 16px; text-align: center; color: #00f3ff; margin-top: 10px"></p>
           </div>
 
           <!-- 3. 행동 조언 지침 -->
@@ -124,11 +123,8 @@
         </div>
       </section>
 
-      <!-- 공통 푸터 영역 -->
-      <footer class="kkaebi-footer">
-        <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
-        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
-      </footer>
+      <!-- 공통 커스텀 푸터 컴포넌트 조립 -->
+      <kkaebi-footer></kkaebi-footer>
     </main>
 
     <!-- 프리미엄 결제 알림 모달 -->
@@ -136,7 +132,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">네 운명의 비밀 서류를 열어볼까?</h4>
-          <button type="button" class="modal-close-btn" id="payModalCloseBtn">X</button>
+          <button type="button" class="modal-close-btn" id="payModalCloseBtn"></button>
         </div>
         <div class="modal-body">
           <p class="modal-desc">사주 원국과 평생 대운의 보따리를 더 깊숙이 들여다보고, 살아가면서 조심해야 할 타이밍까지 담은 프리미엄 리포트를 열어보세요.</p>
@@ -153,7 +149,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">매일 아침, 깨비랑의 운세 알림톡 배달</h4>
-          <button type="button" class="modal-close-btn" id="modalCloseBtn">X</button>
+          <button type="button" class="modal-close-btn" id="modalCloseBtn"></button>
         </div>
         <div class="modal-body">
           <p class="modal-desc">깨비랑 카카오 채널을 추가하시면 매주 월요일 아침 특별한 맞춤 조언 알림톡을 보내드려요.</p>
@@ -164,7 +160,6 @@
       </div>
     </div>
 
-    <!-- 전용 자바스크립트 로드 (달력 라이브러리는 필요 없으므로 완전 제외) -->
     <script src="./assets/js/today.js"></script>
   </body>
 </html>

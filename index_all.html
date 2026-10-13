@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>깨비랑 - 도깨비가 들려주는 당신의 2027년 이야기</title>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css" />
+    <script src="https://js.tosspayments.com/v2/standard"></script>
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes("kakaotalk")) {
+          const currentUrl = window.location.href;
+          if (userAgent.includes("android")) {
+            location.href = "intent://" + currentUrl.replace(/https?:\/\//, "") + "#Intent;scheme=http;package=com.android.chrome;end";
+          } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+            location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="kkaebi-container">
+      <div class="kkaebi-light"></div>
+      <header class="kkaebi-header">
+        <h1 class="logo">
+          깨비랑
+          <span class="logo-icon">
+            <img src="./assets/images/img_kkebi.png" alt="깨비랑 로고" />
+          </span>
+        </h1>
+      </header>
+
+      <!-- 사용자 정보 입력 -->
+      <section id="kkaebi-step-input" class="kkaebi-step-content active">
+        <div class="kkaebi-intro">
+          <p class="sub-title">도깨비가 들려주는</p>
+          <h2 class="main-title">당신의 2027년 이야기</h2>
+        </div>
+
+        <form class="kkaebi-form" id="fortuneForm" onsubmit="return false;">
+          <div class="input-group-row">
+            <!-- 이름 입력 칸 (너비 조정) -->
+            <div class="input-group name-group">
+              <label for="userName" class="input-icon">
+                <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </label>
+              <input type="text" id="userName" placeholder="이름" required autocomplete="off" />
+            </div>
+
+            <!-- 성별 선택 영역 (버튼 토글 그룹) -->
+            <div class="gender-group">
+              <button type="button" class="btn-gender active" data-gender="male">남</button>
+              <button type="button" class="btn-gender" data-gender="female">여</button>
+            </div>
+          </div>
+          <!-- 생년월일 및 태어난 시간 입력란  -->
+          <div class="input-group select-group">
+            <label for="birthDate" class="input-icon">
+              <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </label>
+            <div class="select-wrapper">
+              <span class="select-label">생년월일 및 태어난 시간</span>
+              <input type="text" id="birthDate" placeholder="YYYY.MM.DD HH:MM" required autocomplete="off" />
+            </div>
+
+            <div class="arrow-icon" id="calendarIconBtn" style="cursor: pointer">
+              <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" />
+              </svg>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-text">2027년 무료운세 세가지 확인하기</span>
+            <span class="kkaebi-spinner hidden"></span>
+          </button>
+        </form>
+      </section>
+
+      <!-- 로딩 스크린 -->
+      <div id="kkaebi-loading" class="kkaebi-loading-overlay hidden">
+        <div class="loading-box">
+          <div class="kkaebi-bangmangi-premium">
+            <div class="bangmangi-body">
+              <div class="bangmangi-head-shape"></div>
+              <div class="spikes-grid">
+                <span class="p-spike top-left"></span>
+                <span class="p-spike top-right"></span>
+                <span class="p-spike mid-left-1"></span>
+                <span class="p-spike mid-center"></span>
+                <span class="p-spike mid-right-1"></span>
+                <span class="p-spike bot-left"></span>
+                <span class="p-spike bot-right"></span>
+              </div>
+            </div>
+
+            <div class="handle-wrap">
+              <div class="handle-shaft"></div>
+              <div class="handle-ring"></div>
+            </div>
+
+            <div class="bangmangi-aurora"></div>
+          </div>
+          <p class="loading-text">
+            깨비가 방망이를 휘둘러
+            <br />
+            당신의 2027년 운명을 계산하고 있습니다...
+          </p>
+        </div>
+      </div>
+
+      <!-- 세 가지 무료 운세 결과 세션 -->
+      <section id="kkaebi-step-result" class="kkaebi-step-content hidden">
+        <div class="kkaebi-result-title">
+          <p class="user-greet">방금 깨비가 분석한</p>
+          <h2 class="main-title">
+            <span id="user-placeholder">OO</span>
+            님의 2027년 핵심 키워드
+          </h2>
+        </div>
+
+        <!-- 3단 무료 운세 리포트 카드 스택 -->
+        <div class="kkaebi-cards-container" id="sajuResultBox">
+          <div class="fortune-card">
+            <div class="card-header-zone">
+              <div class="card-tag tag-money">FINANCE</div>
+              <h3 class="card-title">재물운</h3>
+            </div>
+            <!-- 고정 문구를 지우고 자바스크립트가 데이터를 주입할 그릇인 id를 부여했습니다 -->
+            <p class="card-desc" id="fortune-finance"></p>
+          </div>
+
+          <div class="fortune-card">
+            <div class="card-header-zone">
+              <div class="card-tag tag-love">RELATION</div>
+              <h3 class="card-title">연애 · 인간관계</h3>
+            </div>
+            <p class="card-desc" id="fortune-relation"></p>
+          </div>
+
+          <div class="fortune-card">
+            <div class="card-header-zone">
+              <div class="card-tag tag-health">WELLNESS</div>
+              <h3 class="card-title">건강 · 주의점</h3>
+            </div>
+            <p class="card-desc" id="fortune-wellness"></p>
+          </div>
+        </div>
+        <div class="kkaebi-main-action-zone">
+          <button type="button" class="btn-next-step" id="finalCtaBtn">2027년 월별 총운과 상세운세 확인하기</button>
+          <!-- <button type="button" class="btn-share" id="shareKkaebiBtn">깨비랑을 지인에게 추천하기</button> -->
+        </div>
+
+        <div class="kkaebi-next-teaser">
+          <div class="service-intro-box">
+            <p class="intro-headline">나만을 위한 일상 속 수호신, 깨비랑과 친구가 되어보세요</p>
+            <p class="intro-subtext">
+              단순한 신년 풀이를 넘어 월별·일별로 변하는 더욱 자세한 맞춤형 시기별 운세를 배달해 드립니다. 남들에게 말 못 할 밤늦은 고민부터 오늘의 선택까지, 인공지능 깨비랑이 24시간 언제든 당신의
+              곁에서 명쾌하게 1:1 상담을 함께합니다.
+            </p>
+          </div>
+
+          <div class="kkaebi-twin-buttons">
+            <button type="button" class="btn-teaser-retry" id="retryBtn">다른 정보로 다시하기</button>
+            <button type="button" class="btn-teaser-friend" id="friendBtn">깨비랑과 친구되기</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 공통 푸터 영역 -->
+      <footer class="kkaebi-footer">
+        <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
+        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
+      </footer>
+    </main>
+
+    <!-- [MODAL] -->
+    <div id="kkaebiPaymentModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">네 운명의 비밀 서류를 열어볼까?</h4>
+          <button type="button" class="modal-close-btn" id="payModalCloseBtn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">
+            방금 보여준 세 가지 키워드는 시작에 불과해. 네 사주 원국과 만세력을 더 깊숙이 들여다보고, 2027년의 커다란 흐름과 조심해야 할 타이밍까지 담은 전체 운세 리포트를 준비해 두었거든.
+          </p>
+          <p class="modal-desc">
+            확인 버튼을 누르면 네이버페이, 토스페이, 카카오페이 등을 통해 안전하게 딱 한번
+            <s>
+              <strong>1,000원</strong>
+              결제가 진행되고
+            </s>
+            <strong>(지금은 완전 무료!!)</strong>
+            , 완료되는 즉시 너만을 위해 준비한 특별한 이야기 보따리가 전부 열릴 거야.
+          </p>
+          <div class="modal-action-zone">
+            <button type="button" class="btn-modal-pay-execute" id="realPayStartBtn">확인하고 이야기 듣기</button>
+            <button type="button" class="btn-modal-close-today" id="payModalCancelBtn">조금 더 고민할게</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="kkaebiModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">매일 아침, 깨비랑의 다정한 운세가 배달됩니다</h4>
+          <button type="button" class="modal-close-btn" id="modalCloseBtn">
+            <svg xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">깨비랑 카카오 채널을 추가하시면 매주 월요일 아침 나만을 위한 특별한 맞춤 조언 알림톡을 보내드려요. 지금 친구가 되고 일상 속 소중한 행운 타이밍을 놓치지 마세요.</p>
+          <div class="modal-action-zone">
+            <button type="button" class="btn-modal-kakao" id="kakaoLinkBtn">카카오톡으로 깨비랑 추가하기</button>
+            <button type="button" class="btn-modal-close-today" id="modalCloseTodayBtn">오늘은 그냥 넘어가기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

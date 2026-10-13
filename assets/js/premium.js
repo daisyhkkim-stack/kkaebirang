@@ -46,10 +46,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 백엔드 통합 동적 운세 데이터 호출 세션
   try {
-    const response = await fetch("/api/premium", {
+    const response = await fetch("./api/premium", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // 성별 파라미터까지 완벽하게 동기화하여 백엔드로 송신
       body: JSON.stringify({ birthDate: savedBirth, userName: savedName, gender: savedGender }),
     });
 
@@ -91,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("val-color").textContent = d.statColor;
     } else {
       alert("리포트를 생성하지 못했습니다. 첫 화면에서 다시 시도해 주세요.");
-      window.location.href = "./index";
+      window.location.href = "./";
     }
   } catch (err) {
     console.error("프리미엄 데이터 연산 에러 로그:", err);
@@ -124,11 +123,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (financeMetaContainer) financeMetaContainer.classList.add("hidden");
       }
 
-      // [핵심 기능 추가] 탭 클릭 시 열두 달 상세 가이드 타이틀 위치로 화면을 부드럽게 스크롤 이동
+      // 탭 클릭 시 이동
       if (sectionTitle) {
         sectionTitle.scrollIntoView({
-          behavior: "smooth", // 딱딱하게 튀지 않고 부드러운 애니메이션 모션으로 스크롤 이동
-          block: "start", // 브라우저 화면의 최상단(top: 0)에 정렬 타이밍 맞춤
+          behavior: "smooth",
+          block: "start",
         });
       }
     });
@@ -140,14 +139,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       localStorage.removeItem("kkaebiUserName");
       localStorage.removeItem("kkaebiUserBirth");
       localStorage.removeItem("kkaebiUserGender");
-      window.location.href = "./index";
+      window.location.href = "./";
     });
   }
 
   // 주소 공유하기 (클립보드 API 작동)
   if (shareKkaebiBtn) {
     shareKkaebiBtn.addEventListener("click", () => {
-      const currentUrl = window.location.origin + "/index";
+      const currentUrl = window.location.origin + "./";
       navigator.clipboard
         .writeText(currentUrl)
         .then(() => {

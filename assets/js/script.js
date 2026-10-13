@@ -116,7 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("kkaebiUserBirth", birthDate);
 
       try {
-        const response = await fetch("/api/saju", {
+        // const response = await fetch("/api/saju", {
+        const response = await fetch("https://kkaebirang.vercel.app/api/saju", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ birthDate, userName, gender: selectedGender }),
