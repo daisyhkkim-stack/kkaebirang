@@ -32,14 +32,22 @@
 
           <!--  만세력으로 추출된 명리학 사주 원국 부적 레이아웃 -->
           <div id="kkaebi-saju-pillar-box" class="saju-pillar-container" style="display: none; justify-content: center; gap: 8px; margin: 16px auto 24px auto; max-width: 320px">
-            <div class="saju-pillar-card"><span class="pillar-label">시주</span><span class="pillar-value" id="saju-hp">? ?</span></div>
-            <div class="saju-pillar-card"><span class="pillar-label">일주</span><span class="pillar-value" id="saju-dp" style="color: #80cbc4; font-weight: bold">? ?</span></div>
-            <div class="saju-pillar-card"><span class="pillar-label">월주</span><span class="pillar-value" id="saju-mp">? ?</span></div>
             <div class="saju-pillar-card"><span class="pillar-label">년주</span><span class="pillar-value" id="saju-yp">? ?</span></div>
+            <div class="saju-pillar-card"><span class="pillar-label">월주</span><span class="pillar-value" id="saju-mp">? ?</span></div>
+            <div class="saju-pillar-card"><span class="pillar-label">일주</span><span class="pillar-value" id="saju-dp" style="color: #80cbc4; font-weight: bold">? ?</span></div>
+            <div class="saju-pillar-card"><span class="pillar-label">시주</span><span class="pillar-value" id="saju-hp">? ?</span></div>
           </div>
 
-          <!--  내 일간 오행 한 줄 코멘트 텍스트 -->
-          <p id="saju-commentary-text" class="saju-commentary-text"></p>
+          <!--  내 일간 오행풀이 -->
+          <div class="kkaebi-cards-container">
+            <div class="fortune-card">
+              <div class="card-header-zone">
+                <div class="card-tag tag-birth">BIRTH</div>
+                <h3 class="card-title" id="calc-birth-text"></h3>
+              </div>
+              <p id="saju-commentary-text" class="card-desc"></p>
+            </div>
+          </div>
         </div>
         <h3 class="main-title" style="margin-bottom: -8px">2027년 핵심 키워드</h3>
         <div class="kkaebi-cards-container" id="sajuResultBox">
@@ -68,9 +76,10 @@
           </div>
         </div>
 
-        <!-- <div class="kkaebi-main-action-zone" style="display: flex; flex-direction: column; gap: 12px; width: 100%">
-          <button type="button" class="btn-next-step" id="finalCtaBtn">2027년 월별 총운과 상세운세 확인하기</button>
-        </div> -->
+        <div class="kkaebi-main-action-zone" style="display: flex; flex-direction: column; gap: 12px; width: 100%">
+          <button type="button" class="btn-next-step" id="todayFortuneBtn">오늘 하루의 운세 확인하기</button>
+          <!-- <button type="button" class="btn-next-step" id="finalCtaBtn">2027년 월별 총운과 상세운세 확인하기</button> -->
+        </div>
         <div class="kkaebi-next-teaser">
           <div class="service-intro-box">
             <p class="intro-headline">나만을 위한 일상 속 수호신, 깨비랑과 친구가 되어보세요</p>

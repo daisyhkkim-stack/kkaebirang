@@ -48,9 +48,22 @@ export async function POST(request) {
         try {
           if (isLunar) {
             const solarDateConvert = lunarToSolar(year, month, day, false);
-            year = solarDateConvert.solarYear;
-            month = solarDateConvert.solarMonth;
-            day = solarDateConvert.solarDay;
+            console.log("[깨비 역산 실시간 추적 로그]:", JSON.stringify(solarDateConvert));
+
+            if (solarDateConvert) {
+              // 💡 [음력 버그 해결] 라이브러리 반환 스펙 { solar: { year, month, day } } 및 다양한 규격을 방어하는 다중 안전 가드
+              const targetSolarObj = solarDateConvert.solar || solarDateConvert;
+
+              const sYear = targetSolarObj.year || solarDateConvert.solarYear || targetSolarObj.solarYear;
+              const sMonth = targetSolarObj.month || solarDateConvert.solarMonth || targetSolarObj.solarMonth;
+              const sDay = targetSolarObj.day || solarDateConvert.solarDay || targetSolarObj.solarDay;
+
+              if (sYear && sMonth && sDay) {
+                year = parseInt(sYear, 10);
+                month = parseInt(sMonth, 10);
+                day = parseInt(sDay, 10);
+              }
+            }
           }
 
           const sajuResult = calculateSaju(year, month, day, hour, minute, {
@@ -73,6 +86,7 @@ export async function POST(request) {
             dayPillar: dp,
             hourPillar: hp,
             ilGan: ilGanText,
+            solarBirth: `${year}년 ${month}월 ${day}일`, // 상단 날짜 출력용 메타데이터 추가 유지
           };
         } catch (e) {
           console.error("만세력 변환 또는 연산 엔진 실패 단계:", e);
@@ -86,7 +100,6 @@ export async function POST(request) {
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-    // 💡 [프롬프트 가이드 수정] 상한선을 400자로 넉넉하게 변경하여 깊이감 있는 텍스트 유도
     const systemInstruction = `
       너는 정통 명리학 전문가이며 한국 고유의 신비로운 도깨비이고, 이름은 깨비랑이야. 
       사용자가 제공한 인적사항과 만세력 분석 기문 데이터를 최우선 근거로 삼아 운세를 풀이해줘.
@@ -110,7 +123,8 @@ export async function POST(request) {
       이 정밀 만세력 원국 정보와 2027년 정미년의 오행 기운을 정밀하게 대조해서 재물운, 연애 및 인간관계운, 건강 및 주의점 리포트 3가지를 풀이해줘. 각 풀이 중간에 문단 나누기용 <br /><br /> 태그를 꼭 섞어서 400자 이내의 정성스러운 장문 줄글로 출력해줘.
     `;
 
-    const modelQueue = ["gemini-3.8-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite"];
+    // 💡 [요청 사항 반영] 원본 모델 큐 순서 원상 복구 및 철저히 유지
+    const modelQueue = ["gemini-3.5-flash-lite"];
     let responseText = "";
     let successCall = false;
     let finalQuotaExhausted = false;
@@ -154,7 +168,6 @@ export async function POST(request) {
       }
     }
 
-    // 💡 백업 템플릿(mockSajuData)도 320자 선의 가장 이상적인 정성글 볼륨으로 보정 완료
     if (finalQuotaExhausted || !successCall) {
       const mockSajuData = {
         finance: `2027년 정미년은 ${userName}님에게 노력한 만큼 정직하게 통장 잔고가 쌓이는 아주 단단한 재물운의 해가 될 거야. 상반기 지출 흐름에 조급해할 필요 전혀 없어.<br /><br />허황된 대박 리스크보다는 적금이나 실물 자산으로 돈을 묶어두는 게 훨씬 이득이란다. 가을바람이 불기 시작하면 금전줄이 묶이며 안정 궤도에 들어설 테니 내 방망이를 믿고 차곡차곡 곳간을 채워봐!`,

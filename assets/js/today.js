@@ -23,27 +23,28 @@ document.addEventListener("DOMContentLoaded", async () => {
   const kkaebiPaymentModal = document.getElementById("kkaebiPaymentModal");
   const kkaebiModal = document.getElementById("kkaebiModal");
 
-  // [수정] 고장난 Vercel 서버 대신 로컬에서 즉시 훌륭하게 연산 처리
+  // [today.js 내부 연동 교체 구간] 가짜 데이터 걷어내고 실시간 AI 연동 탑재
   try {
-    // 가상의 네트워크 연산 시간(1.2초)을 주어 방망이가 회전하는 역동적인 연출 유지
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    // 💡 백엔드 서버로 오늘의 운세 데이터 요청 전송
+    const response = await fetch("/api/today-saju", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ birthDate, userName, gender }),
+    });
 
-    // 로컬 테스트용 고품질 운세 데이터셋 생성 (나중에 서버 복구 시 이 구조로 들어옵니다)
-    const resData = {
-      todayDaily:
-        "오호라! 오전에는 기운이 살짝 정체돼서 으슬으슬 답답할 수 있겠다 깨비! 하지만 걱정 붙들어 매라구! 이건 내 방망이에 화력이 모이는 과정일 뿐이니까 말야. 오후로 접어들수록 널 도우려는 대단한 귀인의 기운이 아주 강력하게 뿜어져 나올 테니 두고 보라구! 오전 내내 네 머리를 싸매게 만들었던 골치 아픈 문제들이 실타래 풀리듯 스르륵 해결되는 반전 드라마가 펼쳐질 테니, 주저하지 말고 자신감 있게 적극적으로 움직여봐! 알았지?",
-      luckyColor: "눈이 번쩍 뜨이는 네온 에메랄드 (#17e0a8)빛이랑 신비로운 도깨비 불꽃을 닮은 딥 오션 블루 (#00f3ff)라구!",
-      luckyItem: "하루 시간을 황금처럼 쪼개 쓸 수 있는 스마트 워치, 아니면 세상 잔소리를 싹 다 차단해 줄 번쩍이는 블루투스 이어폰 🎧",
-      actionTip:
-        "오늘 하루는 인간덜이랑 대화할 때 내 말부터 냅다 지르지 말고, 상대방 이야기를 끝까지 진득하게 들어주는 게 아주 치명적인 비밀 무기야! 한 템포 천천히 호흡을 가다듬은 뒤에 네 의견을 조리 있게 툭 던지면, 꼬일 수 있는 오해나 잔구설수를 내 방망이로 치듯 완벽하게 방어할 수 있어. 기억해, 경청이 네 신뢰도를 우주 끝까지 끌어올려 줄 테니까!",
-    };
+    if (!response.ok) throw new Error(`Server status ${response.status}`);
+    const resDataWrapper = await response.json();
 
-    // DOM 노드 화면 데이터 주입
-    if (userPlaceholder) userPlaceholder.textContent = userName;
-    if (todayDailyParagraph) todayDailyParagraph.textContent = resData.todayDaily;
-    if (luckyColorParagraph) luckyColorParagraph.textContent = resData.luckyColor;
-    if (luckyItemParagraph) luckyItemParagraph.textContent = resData.luckyItem;
-    if (actionTipParagraph) actionTipParagraph.textContent = resData.actionTip;
+    if (resDataWrapper.success && resDataWrapper.data) {
+      const resData = resDataWrapper.data;
+
+      // DOM 노드 화면에 AI 운세 실시간 주입
+      if (userPlaceholder) userPlaceholder.textContent = userName;
+      if (todayDailyParagraph) todayDailyParagraph.textContent = resData.todayDaily;
+      if (luckyColorParagraph) luckyColorParagraph.textContent = resData.luckyColor;
+      if (luckyItemParagraph) luckyItemParagraph.textContent = resData.luckyItem;
+      if (actionTipParagraph) actionTipParagraph.textContent = resData.actionTip;
+    }
 
     if (todayDatePlaceholder) {
       const todayObj = new Date();
@@ -55,10 +56,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (resultScreen) resultScreen.classList.remove("hidden");
   } catch (err) {
     console.error("오늘의 운세 로딩 에러:", err);
-    alert("로컬 데이터를 매핑하는 과정에서 문제가 발생했어.");
+    alert("도깨비가 운세를 가져오는 데 실패했어. 다시 시도해 줄래?");
   }
 
-  // 하단 모달 및 링크 인터랙션 제어 (안전 코드로 보완)
+  // 하단 모달 및 링크 인터랙션 제어 (완벽 보정 완료)
   const finalCtaBtn = document.getElementById("finalCtaBtn");
   if (finalCtaBtn && kkaebiPaymentModal) {
     finalCtaBtn.addEventListener("click", () => kkaebiPaymentModal.classList.remove("hidden"));
@@ -71,8 +72,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     friendBtn.addEventListener("click", () => kkaebiModal.classList.remove("hidden"));
   }
   document.getElementById("modalCloseBtn")?.addEventListener("click", () => kkaebiModal.classList.add("hidden"));
-  document.getElementById("kakaoLinkBtn")?.addEventListener("click", () => {
-    kkaebiModal.classList.add("hidden");
-    window.open("https://kakao.com", "_blank");
-  });
+
+  // 💡 [수정 완료] 중첩 리스너를 지우고, kkaebiModal을 안전하게 직접 닫도록 구조 교체
+  const targetKakaoBtn = document.getElementById("kakaoLinkBtn");
+  if (targetKakaoBtn) {
+    targetKakaoBtn.addEventListener("click", () => {
+      alert("현재 준비중입니다. 정식 오픈하면 그때 만나요 ^^");
+      if (kkaebiModal) {
+        kkaebiModal.classList.add("hidden"); // 에러 유발하던 closeModal() 대신 직관적으로 모달 닫기
+      }
+    });
+  }
 });

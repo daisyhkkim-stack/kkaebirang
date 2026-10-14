@@ -479,12 +479,12 @@ body {
   opacity: 0.8;
   margin-bottom: 6px;
 }
-#kkaebi-step-result .kkaebi-result-title .main-title {
-  font-size: 1.9rem;
+#kkaebi-step-result .main-title {
+  font-size: 1.5rem;
   font-weight: 800;
   color: #ffffff;
 }
-#kkaebi-step-result .kkaebi-result-title .main-title #user-placeholder {
+#kkaebi-step-result .main-title #user-placeholder {
   color: #17e0a8;
   text-shadow: 0 0 10px rgba(38, 255, 181, 0.3);
 }
@@ -533,6 +533,10 @@ body {
   color: #63e6be;
   border: 1px solid rgba(99, 230, 190, 0.2);
 }
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-tag.tag-birth {
+  color: #c941ff;
+  border: 1px solid rgba(187, 64, 245, 0.2);
+}
 #kkaebi-step-result .kkaebi-cards-container .fortune-card .card-header-zone .card-title {
   font-size: 1.15rem;
   font-weight: 700;
@@ -544,6 +548,9 @@ body {
   color: #c9c6d6;
   opacity: 0.85;
   word-break: keep-all;
+}
+#kkaebi-step-result .kkaebi-cards-container .fortune-card .card-desc b {
+  color: #17e0a8;
 }
 #kkaebi-step-result .kkaebi-cards-container .fortune-card:hover {
   transform: translateY(-3px);
@@ -955,16 +962,13 @@ body {
 }
 /* --- 🔮 깨비랑 프리미엄 만세력 부적 카드 레이아웃 --- */
 .saju-commentary-text {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #0fa37f;
-  font-weight: 500;
+  font-size: 1rem;
 }
 
 .saju-pillar-container .saju-pillar-card {
   position: relative;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 12px 4px;
   width: 68px;
