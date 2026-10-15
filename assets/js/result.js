@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 오늘의 운세로 이동
   if (todayFortuneBtn) {
     todayFortuneBtn.addEventListener("click", () => {
-      window.location.href = "./today";
+      window.location.href = "./today.html";
     });
   }
 

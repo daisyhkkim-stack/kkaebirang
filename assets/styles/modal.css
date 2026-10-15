@@ -80,6 +80,8 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  background: #17a2ff;
+  border: none;
 }
 .modal-overlay .modal-content .modal-body .modal-action-zone .btn-modal-kakao {
   background: #fee500;

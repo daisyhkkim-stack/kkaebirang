@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>깨비랑 - 평생 대운 및 흐름 분석</title>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
+    <script src="./common/layout.js"></script>
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes("kakaotalk")) {
+          const currentUrl = window.location.href;
+          if (userAgent.includes("android")) {
+            location.href = "intent://" + currentUrl.replace(/https?:\/\//, "") + "#Intent;scheme=http;package=com.android.chrome;end";
+          } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+            location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
+          }
+        }
+      })();
+    </script>
+    <style>
+      .daeun-slider-container {
+        width: 100%;
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 8px 4px 20px 4px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .daeun-slider-container::-webkit-scrollbar {
+        height: 6px;
+      }
+      .daeun-slider-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 3px;
+      }
+      .daeun-slider-container::-webkit-scrollbar-thumb {
+        background: rgba(23, 224, 168, 0.2);
+        border-radius: 3px;
+      }
+      .daeun-mini-card {
+        flex: 0 0 100px;
+        scroll-snap-align: start;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(23, 224, 168, 0.15);
+        border-radius: 8px;
+        padding: 12px 6px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .daeun-mini-card.active {
+        background: rgba(23, 224, 168, 0.1);
+        border-color: #17e0a8;
+        box-shadow: 0 0 15px rgba(23, 224, 168, 0.25);
+        transform: translateY(-2px);
+      }
+      .daeun-mini-card .daeun-age {
+        font-size: 0.8rem;
+        color: #8580a2;
+        margin-bottom: 4px;
+        display: block;
+      }
+      .daeun-mini-card .daeun-char {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      /* 처방비책 카드 전용 네온 에메랄드 테두리 스타일 */
+      .prescription-card {
+        border: 1.5px dashed rgba(23, 224, 168, 0.4) !important;
+        background: linear-gradient(135deg, rgba(23, 224, 168, 0.03) 0%, rgba(11, 7, 30, 0.2) 100%) !important;
+        box-shadow: 0 0 15px rgba(23, 224, 168, 0.05);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="kkaebi-container">
+      <div class="kkaebi-light"></div>
+      <kkaebi-header></kkaebi-header>
+
+      <div id="kkaebi-loading" class="kkaebi-loading-overlay">
+        <div class="loading-box">
+          <div class="kkaebi-bangmangi-premium">
+            <div class="bangmangi-body">
+              <div class="bangmangi-head-shape"></div>
+              <div class="spikes-grid">
+                <span class="p-spike top-left"></span>
+                <span class="p-spike top-right"></span>
+                <span class="p-spike mid-left-1"></span>
+                <span class="p-spike mid-center"></span>
+                <span class="p-spike mid-right-1"></span>
+                <span class="p-spike bot-left"></span>
+                <span class="p-spike bot-right"></span>
+              </div>
+            </div>
+            <div class="handle-wrap">
+              <div class="handle-shaft"></div>
+              <div class="handle-ring"></div>
+            </div>
+            <div class="bangmangi-aurora"></div>
+          </div>
+          <p class="loading-text" id="dynamic-loading-text">사용자의 사주 대운 천간 지지를 조립하고 있습니다...</p>
+        </div>
+      </div>
+
+      <section id="kkaebi-step-result" class="kkaebi-step-content hidden">
+        <div class="kkaebi-result-title">
+          <p class="user-greet">내 사주의 평생 운명 무대</p>
+          <h2 class="main-title">
+            <span id="user-placeholder">OO</span>
+            님의 평생 대운 리포트
+          </h2>
+        </div>
+
+        <h3 class="main-title" style="font-size: 1.1rem; text-align: left; margin-bottom: -10px; color: #8580a2">나이별 대운 흐름</h3>
+        <div class="daeun-slider-container" id="daeunSliderDeck"></div>
+
+        <div class="kkaebi-cards-container">
+          <!-- 1. 대운 메인 상세 풀이 카드 -->
+          <div class="fortune-card" style="cursor: default">
+            <div class="card-header-zone">
+              <div class="card-tag tag-birth" id="selectedDaeunAge">00세 대운</div>
+              <h3 class="card-title" id="selectedDaeunPillar">간지 분석</h3>
+            </div>
+            <p class="card-desc" id="daeunCommentaryText" style="text-align: left; line-height: 1.6; color: #ffffff"></p>
+          </div>
+
+          <!-- 2. 💡 [신규 추가] 처방비책 전용 분리형 독립 수호 카드 -->
+          <div class="fortune-card prescription-card" style="cursor: default">
+            <div class="card-header-zone">
+              <div class="card-tag tag-money" style="background: #17e0a8; color: #0b071e">SECRET</div>
+              <h3 class="card-title" style="color: #17e0a8">깨비의 행운 처방비책</h3>
+            </div>
+            <p class="card-desc" id="daeunPrescriptionText" style="text-align: left; line-height: 1.6; color: #e0e0e0; font-weight: 500"></p>
+          </div>
+        </div>
+
+        <div class="kkaebi-main-action-zone" style="display: flex; gap: 12px; width: 100%">
+          <button type="button" class="btn-submit" id="backToResultBtn" style="margin: 0; flex: 1; background: transparent; border: 1px solid #17e0a8; color: #17e0a8; box-shadow: none">신년 총운 보기</button>
+          <button type="button" class="btn-next-step" id="backToTodayBtn" style="margin: 0; flex: 1">오늘의 운세 보기</button>
+        </div>
+      </section>
+
+      <kkaebi-footer></kkaebi-footer>
+    </main>
+
+    <script src="./assets/js/daeun-result.js"></script>
+  </body>
+</html>

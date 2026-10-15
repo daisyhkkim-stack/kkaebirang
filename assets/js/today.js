@@ -1,7 +1,9 @@
+// ./assets/js/today.js
 document.addEventListener("DOMContentLoaded", async () => {
   const userName = localStorage.getItem("kkaebiUserName");
   const birthDate = localStorage.getItem("kkaebiUserBirth");
   const gender = localStorage.getItem("kkaebiUserGender") || "male";
+  const isLunar = localStorage.getItem("kkaebiUserIsLunar") === "true";
   const isUnknownTime = localStorage.getItem("kkaebiUserUnknownTime") === "true";
 
   if (!userName || !birthDate) {
@@ -19,13 +21,52 @@ document.addEventListener("DOMContentLoaded", async () => {
   const luckyItemParagraph = document.getElementById("fortune-luckyItem");
   const actionTipParagraph = document.getElementById("fortune-actionTip");
   const todayDatePlaceholder = document.getElementById("today-date-placeholder");
+  const backToTotalFortuneBtn = document.getElementById("backToTotalFortuneBtn");
+  const goBackToInputBtn = document.getElementById("goBackToInputBtn");
 
-  const kkaebiPaymentModal = document.getElementById("kkaebiPaymentModal");
-  const kkaebiModal = document.getElementById("kkaebiModal");
+  const todayObj = new Date();
+  const dateString = `${todayObj.getFullYear()}년 ${todayObj.getMonth() + 1}월 ${todayObj.getDate()}일`;
+  if (todayDatePlaceholder) todayDatePlaceholder.textContent = dateString;
 
-  // [today.js 내부 연동 교체 구간] 가짜 데이터 걷어내고 실시간 AI 연동 탑재
+  // 💡 [추가] 2027년 총운 결과창(result.html)으로 복귀 라우팅
+  if (backToTotalFortuneBtn) {
+    backToTotalFortuneBtn.addEventListener("click", () => {
+      window.location.href = "./result";
+    });
+  }
+
+  // 💡 [추가] 처음으로 돌아가기 단추 바인딩
+  if (goBackToInputBtn) {
+    goBackToInputBtn.addEventListener("click", () => {
+      window.location.href = "./";
+    });
+  }
+
+  const renderTodayView = (data) => {
+    if (userPlaceholder) userPlaceholder.textContent = userName;
+    if (todayDailyParagraph) todayDailyParagraph.textContent = data.todayDaily;
+    if (luckyColorParagraph) luckyColorParagraph.textContent = data.luckyColor;
+    if (luckyItemParagraph) luckyItemParagraph.textContent = data.luckyItem;
+    if (actionTipParagraph) actionTipParagraph.textContent = data.actionTip;
+  };
+
+  // 🛠️ [캐싱 엔진 적용] 오늘의 운세 중복 호출 방지용 스토리지 분기 제어
+  const todayCacheKey = `today_${userName}_${gender}_${birthDate}_${isLunar}_${isUnknownTime}_${todayObj.getDate()}`;
+  const localCacheData = localStorage.getItem("kkaebiCacheTodayData");
+  const localCacheKey = localStorage.getItem("kkaebiCacheTodayKey");
+
+  if (localCacheKey === todayCacheKey && localCacheData) {
+    try {
+      renderTodayView(JSON.parse(localCacheData));
+      if (loadingScreen) loadingScreen.classList.add("hidden");
+      if (resultScreen) resultScreen.classList.remove("hidden");
+      return; // 💥 API 연동을 원천 차단하고 탈출합니다.
+    } catch (e) {
+      console.warn("오늘의 운세 캐시 오염 발생");
+    }
+  }
+
   try {
-    // 💡 백엔드 서버로 오늘의 운세 데이터 요청 전송
     const response = await fetch("/api/today-saju", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -36,51 +77,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     const resDataWrapper = await response.json();
 
     if (resDataWrapper.success && resDataWrapper.data) {
-      const resData = resDataWrapper.data;
-
-      // DOM 노드 화면에 AI 운세 실시간 주입
-      if (userPlaceholder) userPlaceholder.textContent = userName;
-      if (todayDailyParagraph) todayDailyParagraph.textContent = resData.todayDaily;
-      if (luckyColorParagraph) luckyColorParagraph.textContent = resData.luckyColor;
-      if (luckyItemParagraph) luckyItemParagraph.textContent = resData.luckyItem;
-      if (actionTipParagraph) actionTipParagraph.textContent = resData.actionTip;
+      renderTodayView(resDataWrapper.data);
+      // 로컬스토리지에 캐시 등록
+      localStorage.setItem("kkaebiCacheTodayKey", todayCacheKey);
+      localStorage.setItem("kkaebiCacheTodayData", JSON.stringify(resDataWrapper.data));
     }
 
-    if (todayDatePlaceholder) {
-      const todayObj = new Date();
-      todayDatePlaceholder.textContent = `${todayObj.getFullYear()}년 ${todayObj.getMonth() + 1}월 ${todayObj.getDate()}일`;
-    }
-
-    // 로딩바 걷어내고 결과 화면 온!
     if (loadingScreen) loadingScreen.classList.add("hidden");
     if (resultScreen) resultScreen.classList.remove("hidden");
   } catch (err) {
     console.error("오늘의 운세 로딩 에러:", err);
-    alert("도깨비가 운세를 가져오는 데 실패했어. 다시 시도해 줄래?");
+    alert("도깨비가 오늘 하루 운세를 가져오는 데 실패했어. 다시 시도해 줄래?");
   }
 
-  // 하단 모달 및 링크 인터랙션 제어 (완벽 보정 완료)
-  const finalCtaBtn = document.getElementById("finalCtaBtn");
-  if (finalCtaBtn && kkaebiPaymentModal) {
-    finalCtaBtn.addEventListener("click", () => kkaebiPaymentModal.classList.remove("hidden"));
-  }
-  document.getElementById("payModalCloseBtn")?.addEventListener("click", () => kkaebiPaymentModal.classList.add("hidden"));
-  document.getElementById("payModalCancelBtn")?.addEventListener("click", () => kkaebiPaymentModal.classList.add("hidden"));
+  // 모달 제어
+  const kkaebiModal = document.getElementById("kkaebiModal");
+  document.getElementById("friendBtn")?.addEventListener("click", () => kkaebiModal?.classList.remove("hidden"));
+  document.getElementById("modalCloseBtn")?.addEventListener("click", () => kkaebiModal?.classList.add("hidden"));
+  document.getElementById("modalCloseTodayBtn")?.addEventListener("click", () => kkaebiModal?.classList.add("hidden"));
 
-  const friendBtn = document.getElementById("friendBtn");
-  if (friendBtn && kkaebiModal) {
-    friendBtn.addEventListener("click", () => kkaebiModal.classList.remove("hidden"));
-  }
-  document.getElementById("modalCloseBtn")?.addEventListener("click", () => kkaebiModal.classList.add("hidden"));
-
-  // 💡 [수정 완료] 중첩 리스너를 지우고, kkaebiModal을 안전하게 직접 닫도록 구조 교체
   const targetKakaoBtn = document.getElementById("kakaoLinkBtn");
   if (targetKakaoBtn) {
     targetKakaoBtn.addEventListener("click", () => {
       alert("현재 준비중입니다. 정식 오픈하면 그때 만나요 ^^");
-      if (kkaebiModal) {
-        kkaebiModal.classList.add("hidden"); // 에러 유발하던 closeModal() 대신 직관적으로 모달 닫기
-      }
+      kkaebiModal?.classList.add("hidden");
     });
   }
 });

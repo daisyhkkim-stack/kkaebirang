@@ -301,6 +301,10 @@
     &:active {
       transform: translateY(1px);
     }
+
+    & + .btn-submit {
+      margin-top: 0;
+    }
   }
 }
 

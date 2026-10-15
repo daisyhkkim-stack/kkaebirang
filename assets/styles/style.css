@@ -442,6 +442,9 @@ body {
 .kkaebi-form .btn-submit:active {
   transform: translateY(1px);
 }
+.kkaebi-form .btn-submit + .btn-submit {
+  margin-top: 0;
+}
 
 .kkaebi-footer {
   margin-top: 16px;

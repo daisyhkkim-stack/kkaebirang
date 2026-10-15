@@ -102,7 +102,11 @@
             </div>
           </div>
           <button type="submit" class="btn-submit" id="submitBtn">
-            <span class="btn-text">2027년 무료운세 세가지 확인하기</span>
+            <span class="btn-text">2027년 오행풀이 및 총운 확인하기</span>
+            <span class="kkaebi-spinner hidden"></span>
+          </button>
+          <button type="submit" class="btn-submit btn-goto-today" id="goToTodayDirectBtn">
+            <span class="btn-text">오늘 하루의 운세 보러가기</span>
             <span class="kkaebi-spinner hidden"></span>
           </button>
         </form>
@@ -111,6 +115,26 @@
       <!-- 공통 커스텀 푸터 컴포넌트 조립 -->
       <kkaebi-footer></kkaebi-footer>
     </main>
+
+    <!-- 💡 [신규 추가] 이전 기록 불러오기 전용 커스텀 팝업 모달 -->
+    <div id="kkaebiLoadModal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">이전 조회 기록을 발견했어 깨비!</h4>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc" style="margin-bottom: 20px">
+            이전에 깨비랑에서 운세를 조회하셨던 정보가 남아있습니다.
+            <br />
+            기존 정보를 그대로 불러올까요, 아니면 새로 입력할까요?
+          </p>
+          <div class="modal-action-zone" style="display: flex; gap: 10px; width: 100%">
+            <button type="button" id="btnLoadFresh" class="btn-modal-close-today">새로하기</button>
+            <button type="button" id="btnLoadCached" class="btn-modal">불러오기</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- 날짜 에디터 플러그인 모듈 확보 -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
