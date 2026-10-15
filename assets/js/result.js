@@ -296,4 +296,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (e.target === kkaebiModal) closeModal();
     });
   }
+
+  const goSajuAnalysisBtn = document.getElementById("goSajuAnalysisBtn");
+  if (goSajuAnalysisBtn) {
+    goSajuAnalysisBtn.addEventListener("click", () => {
+      // 로컬스토리지에 저장되어 있는 인적 사항 데이터를 공유한 채 분석 화면으로 이동합니다.
+      window.location.href = "./saju-manse.html";
+    });
+  }
 });
