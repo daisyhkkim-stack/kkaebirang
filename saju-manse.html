@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>깨비랑 - 사주 원국 핵심 분석</title>
+    <link rel="stylesheet" href="./assets/styles/style.css" />
+    <script src="./common/layout.js"></script>
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes("kakaotalk")) {
+          const currentUrl = window.location.href;
+          if (userAgent.includes("android")) {
+            location.href = "intent://" + currentUrl.replace(/https?:\/\//, "") + "#Intent;scheme=http;package=com.android.chrome;end";
+          } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+            location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
+          }
+        }
+      })();
+    </script>
+    <style>
+      /* 성향 분석 전용 유니크 네온 앰비언트 스타일 */
+      .analysis-header-tag {
+        background: rgba(176, 38, 255, 0.15) !important;
+        border: 1px solid #b026ff !important;
+        color: #c77eff !important;
+      }
+      .badge-keyword {
+        display: inline-block;
+        padding: 4px 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: #17e0a8;
+        font-weight: 600;
+        margin-top: 8px;
+        border: 1px solid rgba(23, 224, 168, 0.2);
+      }
+      .bullet-list {
+        text-align: left;
+        list-style: none;
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .bullet-list li {
+        position: relative;
+        padding-left: 14px;
+        font-size: 0.95rem;
+        color: #b3b0c2;
+        line-height: 1.5;
+      }
+      .bullet-list li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #17e0a8;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="kkaebi-container">
+      <div class="kkaebi-light"></div>
+      <kkaebi-header></kkaebi-header>
+
+      <!-- 방망이 오로라 로딩 애니메이션 스크린 -->
+      <div id="kkaebi-loading" class="kkaebi-loading-overlay">
+        <div class="loading-box">
+          <div class="kkaebi-bangmangi-premium">
+            <div class="bangmangi-body">
+              <div class="bangmangi-head-shape"></div>
+              <div class="spikes-grid">
+                <span class="p-spike top-left"></span><span class="p-spike top-right"></span> <span class="p-spike mid-left-1"></span><span class="p-spike mid-center"></span>
+                <span class="p-spike mid-right-1"></span><span class="p-spike bot-left"></span>
+                <span class="p-spike bot-right"></span>
+              </div>
+            </div>
+            <div class="handle-wrap">
+              <div class="handle-shaft"></div>
+              <div class="handle-ring"></div>
+            </div>
+            <div class="bangmangi-aurora"></div>
+          </div>
+          <p class="loading-text">깨비가 명리학 사주 해석 도구를 이용해<br />당신의 고유 성향 방전과 대운 진단서를 인쇄 중입니다...</p>
+        </div>
+      </div>
+
+      <!-- 본문 결과 인터페이스 세션 -->
+      <section id="kkaebi-step-result" class="kkaebi-step-content hidden">
+        <div class="kkaebi-result-title">
+          <p class="user-greet">타고난 명식과 오행의 밸런스</p>
+          <h2 class="main-title"><span id="user-placeholder">OO</span> 님의 사주 원국 핵심 풀이</h2>
+        </div>
+
+        <div class="kkaebi-cards-container" id="analysisDeck">
+          <!-- 스크립트가 리얼 데이터를 기반으로 동적 렌더링할 구역 -->
+        </div>
+
+        <div class="kkaebi-main-action-zone">
+          <button type="button" class="btn-next-step" id="backToTotalFortuneBtn">2027년 오행풀이 및 총운 보러가기</button>
+        </div>
+
+        <!-- 하단 액션 내비게이션 존 (라우팅 보정 완결) -->
+        <div class="kkaebi-twin-buttons">
+          <button type="button" class="btn-teaser-retry" id="backToRetry">처음으로 돌아가기</button>
+          <button type="button" class="btn-teaser-friend" id="backToTodayBtn">오늘의 운세보기</button>
+        </div>
+      </section>
+
+      <kkaebi-footer></kkaebi-footer>
+    </main>
+
+    <script src="./assets/js/saju-analysis.js"></script>
+  </body>
+</html>
