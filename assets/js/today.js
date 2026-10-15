@@ -21,27 +21,21 @@ document.addEventListener("DOMContentLoaded", async () => {
   const luckyItemParagraph = document.getElementById("fortune-luckyItem");
   const actionTipParagraph = document.getElementById("fortune-actionTip");
   const todayDatePlaceholder = document.getElementById("today-date-placeholder");
+
   const backToTotalFortuneBtn = document.getElementById("backToTotalFortuneBtn");
   const goBackToInputBtn = document.getElementById("goBackToInputBtn");
+  const goSajuAnalysisBtn = document.getElementById("goSajuAnalysisBtn");
 
+  // 현재 날짜 텍스트 세팅
   const todayObj = new Date();
-  const dateString = `${todayObj.getFullYear()}년 ${todayObj.getMonth() + 1}월 ${todayObj.getDate()}일`;
+  const currentYear = todayObj.getFullYear();
+  const currentMonth = todayObj.getMonth() + 1; // 0부터 시작하므로 +1
+  const currentDate = todayObj.getDate();
+
+  const dateString = `${currentYear}년 ${currentMonth}월 ${currentDate}일`;
   if (todayDatePlaceholder) todayDatePlaceholder.textContent = dateString;
 
-  // 💡 [추가] 2027년 총운 결과창(result.html)으로 복귀 라우팅
-  if (backToTotalFortuneBtn) {
-    backToTotalFortuneBtn.addEventListener("click", () => {
-      window.location.href = "./result";
-    });
-  }
-
-  // 💡 [추가] 처음으로 돌아가기 단추 바인딩
-  if (goBackToInputBtn) {
-    goBackToInputBtn.addEventListener("click", () => {
-      window.location.href = "./";
-    });
-  }
-
+  // 화면에 오늘의 운세 데이터를 그리는 공통 렌더러 함수
   const renderTodayView = (data) => {
     if (userPlaceholder) userPlaceholder.textContent = userName;
     if (todayDailyParagraph) todayDailyParagraph.textContent = data.todayDaily;
@@ -50,8 +44,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (actionTipParagraph) actionTipParagraph.textContent = data.actionTip;
   };
 
-  // 🛠️ [캐싱 엔진 적용] 오늘의 운세 중복 호출 방지용 스토리지 분기 제어
-  const todayCacheKey = `today_${userName}_${gender}_${birthDate}_${isLunar}_${isUnknownTime}_${todayObj.getDate()}`;
+  // 🛠️ 캐싱 엔진 처리 제어부
+  const todayCacheKey = `today_${userName}_${gender}_${birthDate}_${isLunar}_${isUnknownTime}_${currentYear}_${currentMonth}_${currentDate}`;
   const localCacheData = localStorage.getItem("kkaebiCacheTodayData");
   const localCacheKey = localStorage.getItem("kkaebiCacheTodayKey");
 
@@ -60,55 +54,63 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderTodayView(JSON.parse(localCacheData));
       if (loadingScreen) loadingScreen.classList.add("hidden");
       if (resultScreen) resultScreen.classList.remove("hidden");
-      return; // 💥 API 연동을 원천 차단하고 탈출합니다.
+      // 💡 [버그 수정] 하단 리스너들이 무조건 실행되도록 return 대신 바로 아래 서버 통신만 패스하도록 처리합니다.
     } catch (e) {
-      console.warn("오늘의 운세 캐시 오염 발생");
+      console.warn("오늘의 운세 캐시 오염 발생, 서버 통신 재시도");
+      await fetchTodayFortuneFromServer();
+    }
+  } else {
+    // 캐시가 없거나 날짜가 바뀌었을 때만 서버에서 호출
+    await fetchTodayFortuneFromServer();
+  }
+
+  // 💡 서버에서 오늘의 운세를 받아오는 가동 함수
+  async function fetchTodayFortuneFromServer() {
+    try {
+      const response = await fetch("/api/today-saju", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ birthDate, userName, gender }),
+      });
+
+      if (!response.ok) throw new Error(`Server status ${response.status}`);
+      const resDataWrapper = await response.json();
+
+      if (resDataWrapper.success && resDataWrapper.data) {
+        renderTodayView(resDataWrapper.data);
+        // 로컬스토리지에 당일 전용 캐시 등록
+        localStorage.setItem("kkaebiCacheTodayKey", todayCacheKey);
+        localStorage.setItem("kkaebiCacheTodayData", JSON.stringify(resDataWrapper.data));
+      }
+
+      if (loadingScreen) loadingScreen.classList.add("hidden");
+      if (resultScreen) resultScreen.classList.remove("hidden");
+    } catch (err) {
+      console.error("오늘의 운세 로딩 에러:", err);
+      alert("도깨비가 오늘 하루 운세를 가져오는 데 실패했어. 다시 시도해 줄래?");
     }
   }
 
-  try {
-    const response = await fetch("/api/today-saju", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ birthDate, userName, gender }),
-    });
+  // 💡 [해결 확인] 캐시 동작 여부와 완벽히 격리되어 무조건 상시 구동되는 라우팅 리스너 영역
 
-    if (!response.ok) throw new Error(`Server status ${response.status}`);
-    const resDataWrapper = await response.json();
-
-    if (resDataWrapper.success && resDataWrapper.data) {
-      renderTodayView(resDataWrapper.data);
-      // 로컬스토리지에 캐시 등록
-      localStorage.setItem("kkaebiCacheTodayKey", todayCacheKey);
-      localStorage.setItem("kkaebiCacheTodayData", JSON.stringify(resDataWrapper.data));
-    }
-
-    if (loadingScreen) loadingScreen.classList.add("hidden");
-    if (resultScreen) resultScreen.classList.remove("hidden");
-  } catch (err) {
-    console.error("오늘의 운세 로딩 에러:", err);
-    alert("도깨비가 오늘 하루 운세를 가져오는 데 실패했어. 다시 시도해 줄래?");
-  }
-
-  // 모달 제어
-  const kkaebiModal = document.getElementById("kkaebiModal");
-  document.getElementById("friendBtn")?.addEventListener("click", () => kkaebiModal?.classList.remove("hidden"));
-  document.getElementById("modalCloseBtn")?.addEventListener("click", () => kkaebiModal?.classList.add("hidden"));
-  document.getElementById("modalCloseTodayBtn")?.addEventListener("click", () => kkaebiModal?.classList.add("hidden"));
-
-  const targetKakaoBtn = document.getElementById("kakaoLinkBtn");
-  if (targetKakaoBtn) {
-    targetKakaoBtn.addEventListener("click", () => {
-      alert("현재 준비중입니다. 정식 오픈하면 그때 만나요 ^^");
-      kkaebiModal?.classList.add("hidden");
-    });
-  }
-
-  const goSajuAnalysisBtn = document.getElementById("goSajuAnalysisBtn");
+  // 1. 만세력 사주정국 화면으로 이동
   if (goSajuAnalysisBtn) {
     goSajuAnalysisBtn.addEventListener("click", () => {
-      // 로컬스토리지에 저장되어 있는 인적 사항 데이터를 공유한 채 분석 화면으로 이동합니다.
       window.location.href = "./saju-manse";
+    });
+  }
+
+  // 2. 2027년 총운 결과창(result.html)으로 복귀
+  if (backToTotalFortuneBtn) {
+    backToTotalFortuneBtn.addEventListener("click", () => {
+      window.location.href = "./result";
+    });
+  }
+
+  // 3. 메인 입력창으로 돌아가기
+  if (goBackToInputBtn) {
+    goBackToInputBtn.addEventListener("click", () => {
+      window.location.href = "./";
     });
   }
 });
