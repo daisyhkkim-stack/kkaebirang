@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!birthDate) {
     alert("인적 사항 데이터 조회가 되지 않습니다 깨비! 입력창으로 복귀합니다.");
-    window.location.href = "./index.html";
+    window.location.href = "./index";
     return;
   }
 
@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (userPlaceholder) userPlaceholder.textContent = userName;
 
   document.getElementById("goDaeunPageBtn")?.addEventListener("click", () => {
-    window.location.href = "./daeun-result.html";
+    window.location.href = "./daeun-result";
   });
   document.getElementById("backToResultBtn")?.addEventListener("click", () => {
-    window.location.href = "./result.html";
+    window.location.href = "./result";
   });
   document.getElementById("backToTodayBtn")?.addEventListener("click", () => {
-    window.location.href = "./today.html";
+    window.location.href = "./today";
   });
 
   const renderAnalysisDOM = (cardsList) => {

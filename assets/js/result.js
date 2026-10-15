@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 오늘의 운세로 이동
   if (todayFortuneBtn) {
     todayFortuneBtn.addEventListener("click", () => {
-      window.location.href = "./today.html";
+      window.location.href = "./today";
     });
   }
 
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (goSajuAnalysisBtn) {
     goSajuAnalysisBtn.addEventListener("click", () => {
       // 로컬스토리지에 저장되어 있는 인적 사항 데이터를 공유한 채 분석 화면으로 이동합니다.
-      window.location.href = "./saju-manse.html";
+      window.location.href = "./saju-manse";
     });
   }
 });
