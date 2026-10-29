@@ -37,7 +37,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 30px;
 }
 
 // CONTAINER
@@ -48,8 +48,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
-  padding: 40px 24px;
+  gap: 20px;
   overflow-y: auto;
   // box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.25);
   // border: 1px solid #bfa0aa;

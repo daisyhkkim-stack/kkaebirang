@@ -20,7 +20,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 30px;
 }
 
 .mobile-container {
@@ -30,8 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 40px;
-  padding: 40px 24px;
+  gap: 20px;
   overflow-y: auto;
   border-radius: 20px;
 }
