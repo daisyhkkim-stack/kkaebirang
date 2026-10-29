@@ -6,6 +6,19 @@
     <title>최애와 나의 비밀 연애 궁합</title>
     <script src="./common/layout.js"></script>
     <link rel="stylesheet" href="./assets/styles/favor.css" />
+    <script>
+      (function () {
+        const userAgent = navigator.userAgent.toLowerCase();
+        if (userAgent.includes("kakaotalk")) {
+          const currentUrl = window.location.href;
+          if (userAgent.includes("android")) {
+            location.href = "intent://" + currentUrl.replace(/https?:\/\//, "") + "#Intent;scheme=http;package=com.android.chrome;end";
+          } else if (userAgent.includes("iphone") || userAgent.includes("ipad")) {
+            location.href = "kakaotalk://web/openExternal?url=" + encodeURIComponent(currentUrl);
+          }
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="mobile-container">
