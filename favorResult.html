@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>궁합 결과 보기</title>
+    <script src="./common/layout.js"></script>
+    <link rel="stylesheet" href="./assets/styles/favor.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <!-- RESULT CARD AREA -->
+      <main class="result-container">
+        <div id="resultCard" class="result-card">
+          <div class="card-header">MATCHING RESULT</div>
+
+          <div class="names-display">
+            <span id="userNameDisplay" class="name-text"></span>
+            <span class="heart-split"></span>
+            <span id="idolNameDisplay" class="name-text"></span>
+          </div>
+
+          <div class="score-box">
+            <span id="scoreDisplay">0%</span>
+          </div>
+
+          <div class="analysis-box">
+            <h2 id="resultTitle" class="result-title"></h2>
+            <p id="resultDesc" class="result-desc"></p>
+          </div>
+        </div>
+      </main>
+
+      <!-- ACTION BUTTONS AREA -->
+      <footer class="action-container">
+        <div class="button-row">
+          <button id="saveBtn" class="action-btn save">이미지 저장</button>
+          <button id="shareBtn" class="action-btn share">링크 공유</button>
+        </div>
+        <button id="retryBtn" class="retry-btn">다른 최애와 다시 하기</button>
+      </footer>
+
+      <!-- 공통 커스텀 푸터 컴포넌트 조립 -->
+      <kkaebi-footer></kkaebi-footer>
+    </div>
+
+    <script src="./assets/js/favorResult.js"></script>
+  </body>
+</html>

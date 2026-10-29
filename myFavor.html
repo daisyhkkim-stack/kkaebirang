@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>최애와 나의 비밀 연애 궁합</title>
+    <script src="./common/layout.js"></script>
+    <link rel="stylesheet" href="./assets/styles/favor.css" />
+  </head>
+  <body>
+    <div class="mobile-container">
+      <!-- HEADER AREA -->
+      <header class="main-header">
+        <div class="sparkle-icon">MY IDOL MATCHING</div>
+        <h1 class="main-title">
+          최애와 나의
+          <br />
+          <span class="highlight">비밀 연애 궁합</span>
+        </h1>
+
+        <div class="heart-graphic">
+          <div class="heart-shape"></div>
+        </div>
+        <p class="sub-title">이름으로 보는 두 사람의 운명적 지수</p>
+      </header>
+
+      <!-- FORM AREA -->
+      <main class="form-container">
+        <form id="matchingForm" novalidate>
+          <div class="input-wrap">
+            <div class="input-group">
+              <label for="userName">내 이름</label>
+              <input type="text" id="userName" placeholder="(ex. 김네임)" autocomplete="off" maxlength="10" required />
+            </div>
+
+            <div class="input-group">
+              <label for="idolName">최애 이름</label>
+              <input type="text" id="idolName" placeholder="(ex. 박진영)" autocomplete="off" maxlength="10" required />
+            </div>
+          </div>
+          <button type="submit" id="submitBtn" class="submit-btn">
+            <span>우리 궁합 확인하기</span>
+          </button>
+        </form>
+      </main>
+      <!-- 공통 커스텀 푸터 컴포넌트 조립 -->
+      <kkaebi-footer></kkaebi-footer>
+    </div>
+
+    <script src="./assets/js/favor.js"></script>
+  </body>
+</html>

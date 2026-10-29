@@ -1,0 +1,499 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+@font-face {
+  font-family: "GyeonggiMillenniumTitle";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2410-3@1.0/TitleV.woff") format("woff");
+  font-weight: 800;
+  font-display: swap;
+}
+
+// VARIABLES
+$bg-color: #fff5f7;
+$primary-color: #ff4a7d;
+$primary-dark: #e03264;
+$text-color: #2b2b2b;
+$input-bg: #ffffff;
+$border-color: #ffd1dc;
+$font-title: "GyeonggiMillenniumTitle", sans-serif;
+$font-body:
+  "Pretendard",
+  -apple-system,
+  BlinkMacSystemFont,
+  system-ui,
+  sans-serif;
+
+// BASE RESET
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: $bg-color;
+  font-family: $font-body;
+  color: $text-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+// CONTAINER
+.mobile-container {
+  width: 100%;
+  max-width: 480px;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 40px 24px;
+  overflow-y: auto;
+  // box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.25);
+  // border: 1px solid #bfa0aa;
+  border-radius: 20px;
+}
+
+// HEADER
+.main-header {
+  text-align: center;
+  margin-top: 20px;
+
+  .sparkle-icon {
+    font-size: 14px;
+    font-weight: 700;
+    color: $primary-color;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .main-title {
+    font-family: $font-title;
+    font-size: 32px;
+    line-height: 1.3;
+    color: #111;
+    letter-spacing: -1px;
+
+    .highlight {
+      color: $primary-color;
+      position: relative;
+      display: inline-block;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background-color: rgba($primary-color, 0.15);
+        z-index: -1;
+      }
+    }
+  }
+
+  .heart-graphic {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+
+    .heart-shape {
+      width: 50px;
+      height: 50px;
+      background-color: $primary-color;
+      position: relative;
+      transform: rotate(-45deg);
+      animation: heartBeat 1.2s infinite ease-in-out;
+
+      &::before,
+      &::after {
+        content: "";
+        width: 50px;
+        height: 50px;
+        background-color: $primary-color;
+        border-radius: 50%;
+        position: absolute;
+      }
+
+      &::before {
+        top: -25px;
+        left: 0;
+      }
+
+      &::after {
+        top: 0;
+        left: 25px;
+      }
+    }
+  }
+
+  .sub-title {
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+  }
+}
+
+// FORM
+.form-container {
+  width: 100%;
+  margin-bottom: 20px;
+
+  .input-wrap {
+    display: flex;
+    gap: 20px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+    text-align: center;
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #555;
+      margin-bottom: 8px;
+      padding-left: 4px;
+    }
+
+    input {
+      width: 100%;
+      height: 56px;
+      background-color: $input-bg;
+      border: 2px solid $border-color;
+      border-radius: 10px;
+      padding: 0 20px;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.2s ease;
+      color: $text-color;
+      text-align: center;
+
+      &::placeholder {
+        color: #bbb;
+      }
+
+      &:focus {
+        border-color: $primary-color;
+        box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  .submit-btn {
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(135deg, $primary-color 0%, #ff758c 100%);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba($primary-color, 0.3);
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.2s ease;
+    margin-top: 10px;
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 10px rgba($primary-color, 0.3);
+    }
+  }
+}
+
+// ANIMATION
+@keyframes heartBeat {
+  0% {
+    transform: rotate(-45deg) scale(1);
+  }
+  14% {
+    transform: rotate(-45deg) scale(1.12);
+  }
+  28% {
+    transform: rotate(-45deg) scale(1);
+  }
+  42% {
+    transform: rotate(-45deg) scale(1.12);
+  }
+  70% {
+    transform: rotate(-45deg) scale(1);
+  }
+}
+
+//  result
+
+// NAVIGATION
+.nav-bar {
+  width: 100%;
+  padding: 10px 0;
+
+  .back-btn {
+    background: none;
+    border: none;
+    font-family: $font-body;
+    font-size: 14px;
+    color: #777;
+    cursor: pointer;
+    padding: 5px 0;
+  }
+}
+
+// RESULT CARD
+.result-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.result-card {
+  background-color: #ffffff;
+  border: 3px solid $border-color;
+  border-radius: 24px;
+  width: 100%;
+  padding: 32px 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba($primary-color, 0.05);
+
+  .card-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: $primary-color;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .names-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    .name-text {
+      font-family: $font-title;
+      font-size: 24px;
+      color: $text-color;
+    }
+
+    .heart-split {
+      width: 20px;
+      height: 20px;
+      background-color: $primary-color;
+      position: relative;
+      transform: rotate(-45deg);
+
+      &::before,
+      &::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        background-color: $primary-color;
+        border-radius: 50%;
+        position: absolute;
+      }
+      &::before {
+        top: -10px;
+        left: 0;
+      }
+      &::after {
+        top: 0;
+        left: 10px;
+      }
+    }
+  }
+
+  .score-box {
+    margin-bottom: 24px;
+
+    #scoreDisplay {
+      font-family: $font-title;
+      font-size: 64px;
+      color: $primary-color;
+      line-height: 1;
+    }
+  }
+
+  .analysis-box {
+    border-top: 1px dashed $border-color;
+    padding-top: 20px;
+
+    .result-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .result-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+      word-break: keep-all;
+      font-weight: 500;
+    }
+  }
+}
+
+// ACTION BUTTONS
+.action-container {
+  width: 100%;
+
+  .button-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .action-btn {
+    flex: 1;
+    height: 52px;
+    border: none;
+    border-radius: 10px;
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &.save {
+      background-color: #2b2b2b;
+      color: #fff;
+    }
+    &.share {
+      background-color: #e2e8f0;
+      color: #334155;
+    }
+  }
+
+  .retry-btn {
+    width: 100%;
+    height: 52px;
+    background-color: transparent;
+    border: 2px solid $border-color;
+    border-radius: 10px;
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 700;
+    color: $primary-color;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:active {
+      background-color: rgba($primary-color, 0.05);
+    }
+  }
+}
+
+// 100점
+
+// PERFECT 100% SPECIAL STYLE
+.result-card.is-perfect {
+  background: linear-gradient(145deg, #ffffff, #fffdf0);
+  border: 3px solid #ffd700; // 골드 테두리 변경
+  box-shadow:
+    0 0 25px rgba(255, 215, 0, 0.4),
+    0 8px 30px rgba($primary-color, 0.1);
+  animation: pulseGold 2s infinite ease-in-out;
+
+  .card-header {
+    color: #d4af37;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  }
+
+  .names-display .heart-split {
+    background-color: #d4af37;
+    &::before,
+    &::after {
+      background-color: #d4af37;
+    }
+  }
+
+  .score-box #scoreDisplay {
+    background: linear-gradient(135deg, #ff4a7d 0%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 72px; // 조금 더 크게 강조
+    filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.2));
+  }
+}
+
+// GOLD ANIMATION KEYFRAME
+@keyframes pulseGold {
+  0% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+  }
+}
+
+// 푸터
+.kkaebi-footer {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; // 안내 텍스트와 카피라이트 사이의 간격 격리
+  text-align: center;
+
+  .footer-desc {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    letter-spacing: -0.2px;
+  }
+
+  .copyright {
+    font-size: 0.75rem; // 조금 더 작고 얇게 조정
+    opacity: 0.5; // 시선을 분산시키지 않도록 은은하게 처리
+    letter-spacing: 0.3px;
+  }
+
+  a {
+    color: #000;
+  }
+}
+
+// DOOM 0% SPECIAL STYLE
+.result-card.is-doom {
+  background: linear-gradient(145deg, #1a1a1a, #2b1d22); // 어두운 블랙/레드 그라데이션
+  border: 3px solid #ff003c; // 새빨간 테두리
+  box-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+
+  .card-header,
+  .result-title,
+  .result-desc,
+  .name-text {
+    color: #ffffff !important; // 글씨는 하얗게 반전
+  }
+
+  .card-header {
+    color: #ff003c !important;
+    text-shadow: 0 0 8px rgba(255, 0, 60, 0.6);
+  }
+
+  .score-box #scoreDisplay {
+    color: #ff003c !important;
+    font-size: 72px;
+    animation: flashRed 0.5s infinite alternate; // 깜빡거리는 경고 효과
+  }
+}
+
+@keyframes flashRed {
+  0% {
+    opacity: 0.6;
+    text-shadow: 0 0 5px #ff003c;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 20px #ff003c;
+  }
+}

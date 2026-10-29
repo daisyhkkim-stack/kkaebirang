@@ -20,7 +20,7 @@ class KkaebiFooter extends HTMLElement {
     this.innerHTML = `
       <footer class="kkaebi-footer">
         <p class="footer-desc">신비로운 도깨비 친구가 준비한 AI 운세</p>
-        <small class="copyright">&copy; 2027 깨비랑. All rights reserved.</small>
+        <small class="copyright">&copy; 2027 <a href="https://kkaebirang.vercel.app">깨비랑</a>. All rights reserved.</small>
       </footer>
     `;
   }
